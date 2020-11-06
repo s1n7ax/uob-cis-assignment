@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="601.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.s1n7ax.feedback.controller.LoginController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="342.0" prefWidth="449.0" styleClass="login-form-container" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox alignment="CENTER" prefHeight="346.0" prefWidth="449.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="362.0" styleClass="login-form-header" text="Log In" textAlignment="JUSTIFY">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="txt_Email" alignment="CENTER" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="200.0" onKeyPressed="#keypressed_Email" promptText="Email">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="txt_Password" alignment="CENTER" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="200.0" promptText="Password">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></PasswordField>
+                  <Button fx:id="btn_Login" mnemonicParsing="false" onMouseClicked="#clicked_btn_Login" prefHeight="50.0" prefWidth="300.0" styleClass="button-primary" text="Log In">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+    </AnchorPane>
+      <AnchorPane minHeight="133.0" minWidth="500.0" prefHeight="157.0" prefWidth="533.0" styleClass="google-signin-container">
+         <children>
+            <VBox alignment="CENTER" layoutY="-53.0" prefHeight="203.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="btn_GoogleSignin" fitHeight="63.0" fitWidth="303.0" onMouseClicked="#clicked_btn_GoogleSignin" pickOnBounds="true" preserveRatio="true" styleClass="google-signin-btn" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+  </children>
+   <stylesheets>
+      <URL value="@login.css" />
+      <URL value="@../root.css" />
+   </stylesheets>
+</VBox>

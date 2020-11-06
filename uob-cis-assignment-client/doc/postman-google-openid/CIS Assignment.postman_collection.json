@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "6d235ac2-e439-4f60-9ec2-149ac657c7f8",
+		"name": "CIS Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Exchange authorization code request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "4/5QGWhCFTT9JjKg",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:3000/auth",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "1132911",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "eoMS",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://oauth2.googleapis.com/token",
+					"protocol": "https",
+					"host": [
+						"oauth2",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"token"
+					]
+				},
+				"description": "sends the authorization code and get access token and id_token"
+			},
+			"response": []
+		},
+		{
+			"name": "User validation using authentication token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=ya29.a0A",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"oauth2",
+						"v1",
+						"userinfo"
+					],
+					"query": [
+						{
+							"key": "alt",
+							"value": "json"
+						},
+						{
+							"key": "access_token",
+							"value": "ya29.a0A"
+						}
+					]
+				},
+				"description": "Don't use this for production. this doesn't validate the authorization.\naccess_token could be from some other applications\n\nAll this say is \"there is a google user\""
+			},
+			"response": []
+		},
+		{
+			"name": "User validation using id_token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://oauth2.googleapis.com/tokeninfo?id_token=eyJhbGciOiJ",
+					"protocol": "https",
+					"host": [
+						"oauth2",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"tokeninfo"
+					],
+					"query": [
+						{
+							"key": "id_token",
+							"value": "eyJhbGciOiJ"
+						}
+					]
+				},
+				"description": "Don't use this for production. this doesn't validate the authorization.\nid_token could be from some other applications\n\nAll this say is \"there is a google user\""
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

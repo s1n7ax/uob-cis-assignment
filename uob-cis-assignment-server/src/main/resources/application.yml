@@ -1,0 +1,29 @@
+spring:
+    h2:
+        console:
+            enabled: true
+    datasource:
+        url: jdbc:h2:mem:database
+
+oauth:
+    google:
+        authorization:
+            uri: https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=%s&scope=openid+email&redirect_uri=%s
+            client_id: 113291176157-aibhsqjf655ve4f9ftueb9vfbb71u40h.apps.googleusercontent.com
+            redirect_uri: http://localhost:8080/oauth/google
+            client_secret_file: client_secret_113291176157-aibhsqjf655ve4f9ftueb9vfbb71u40h.apps.googleusercontent.com.json
+
+# spring:
+#     security:
+#         oauth2:
+#             client:
+#                 registration:
+#                     google:
+#                         clientId: 113291176157-aibhsqjf655ve4f9ftueb9vfbb71u40h.apps.googleusercontent.com
+#                         clientSecret: eoMSeHUaFCrHDfPhYUBMx5-A
+
+server:
+    servlet:
+        session:
+            cookie:
+                path: /

@@ -1,0 +1,65 @@
+
+/******************************************************************************/
+/*                                    ROOT                                    */
+/******************************************************************************/
+.root {
+	/* COLOR VARIABLES */
+	-fx-color-dark-primary: #616161;
+	-fx-color-light-primary: #F5F5F5;
+	-fx-color-primary: #9E9E9E;
+	-fx-color-text-icon: #212121;
+	-fx-color-accent: #03A9F4;
+	-fx-color-dark-accent: #0099de;
+	-fx-color-light-accent: #1fb9ff;
+	-fx-color-primary-text: #212121;
+	-fx-color-secondary-text: #757575;
+	-fx-color-divider: #BDBDBD;
+
+	-fx-color-valid: #4CAF50;
+	-fx-color-invalid: #FF5252;
+
+	/* FONT */
+	-fx-font-family: Abel;
+	-fx-font-size: 20;
+
+	/* UI */
+	-fx-background-color: -fx-color-light-primary;
+}
+
+.text-field {
+	-fx-border-insets: 10 0 0 0;
+
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+}
+
+.text-field-valid {
+	-fx-text-box-border: -fx-color-valid;
+	-fx-focus-color: -fx-color-valid;
+}
+
+.text-field-invalid {
+	-fx-text-box-border: -fx-color-invalid;
+	-fx-focus-color: -fx-color-invalid;
+}
+
+
+.button {
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+}
+
+.button-primary {
+	-fx-background-color: -fx-color-accent;
+	-fx-text-fill: -fx-color-light-primary;
+}
+
+.button-primary:hover {
+	-fx-background-color: -fx-color-light-accent;
+	-fx-effect: dropshadow(two-pass-box, rgba(33, 33, 34, 0.3), 10, 0.1, 1, 1);
+}
+
+.button-primary:hover:pressed {
+	-fx-background-color: -fx-color-dark-accent;
+	-fx-effect: dropshadow(gaussian, rgba(33, 33, 33, 0.3), 4, 0.1, 0, 0);
+}

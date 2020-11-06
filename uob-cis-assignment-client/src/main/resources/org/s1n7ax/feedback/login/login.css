@@ -1,0 +1,38 @@
+/******************************************************************************/
+/*                              ROOT > LOGIN-FORM                             */
+/******************************************************************************/
+
+/* CONTAINER */
+.login-form-container {
+	-fx-border-insets: 20px;
+}
+
+/* HEADER */
+.login-form-header {
+	-fx-text-fill: -fx-color-primary-text;
+	-fx-font-size: 50;
+}
+
+
+/******************************************************************************/
+/*                            ROOT > GOOGLE-SIGNIN                            */
+/******************************************************************************/
+/* CONTAINER */
+.google-signin-container {
+	-fx-background-color: #FFFFFF
+}
+
+/* SIGNIN BUTTON */
+.google-signin-btn {
+	-fx-image: url('images/google-signin/google_signin_buttons/web/2x/btn_google_signin_light_normal_web@2x.png');
+	-fx-effect: dropshadow(gaussian, rgba(33, 33, 33, 0.5), 5, 0.1, 0, 0);
+}
+
+.google-signin-btn:hover {
+	-fx-effect: dropshadow(two-pass-box, rgba(33, 33, 34, 0.5), 10, 0.1, 0, 0);
+}
+
+.google-signin-btn:hover:pressed {
+	-fx-effect: dropshadow(gaussian, rgba(33, 33, 33, 0.5), 2, 0.1, 0, 0);
+}
+
