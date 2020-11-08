@@ -23,9 +23,8 @@ public class Main extends Application {
 		logger.info("starting application");
 
 		setUserAgentStylesheet(STYLESHEET_CASPIAN);
-		
-		
-		FXViewController.getInstance().showFXML(primaryStage, FXMLConfiguration.LOGIN_VIEW_PATH);
+
+		FXViewController.getInstance().toStage(primaryStage).withView(FXMLConfiguration.LOGIN_VIEW_PATH).show();
 	}
 
 	@Override
