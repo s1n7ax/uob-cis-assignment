@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'uob-cis-assignment-client'
+include ':uob-cis-assignment'
+project(':uob-cis-assignment').projectDir = new File('../uob-cis-assignment')
