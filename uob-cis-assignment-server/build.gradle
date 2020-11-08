@@ -18,7 +18,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.s1n7ax.feedback:uob-cis-assignment'
+	
 	
 	runtimeOnly 'com.h2database:h2'
 
@@ -29,6 +29,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	compile 'com.google.api-client:google-api-client:1.30.11'
+	compile project(":uob-cis-assignment")
 }
 
 test {
