@@ -23,7 +23,7 @@ public class PurchaseHistory {
 
 	@OneToMany
 	private List<Feedback> feedbackList;
-	
+
 	public PurchaseHistory() {
 	}
 
