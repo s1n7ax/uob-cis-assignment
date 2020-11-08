@@ -72,7 +72,7 @@ public class LoginController {
 					.setScheme(FeedbackServiceConfig.PROTOCOL) //
 					.setHost(FeedbackServiceConfig.HOST) //
 					.setPort(FeedbackServiceConfig.PORT) //
-					.setPath(FeedbackServiceConfig.GET_SESSION_EP) //
+					.setPath(FeedbackServiceConfig.GET_SOCIAL_LOGIN_EP) //
 					.setParameter(FeedbackServiceConfig.SESSION_PARAM_NAME, sessionId) //
 					.build();
 
@@ -104,7 +104,14 @@ public class LoginController {
 
 		// user has successfully logged in to the style
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		FXViewController.getInstance().showFXML(stage, FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH);
+		try {
+			FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage).show();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			AlertPopup.errorAlert(e.getMessage());
+
+		}
+
 	}
 
 	@FXML

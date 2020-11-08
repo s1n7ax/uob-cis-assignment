@@ -1,20 +1,29 @@
 package org.s1n7ax.feedback.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.s1n7ax.feedback.common.AlertPopup;
+import org.s1n7ax.feedback.configuration.FXMLConfiguration;
+import org.s1n7ax.feedback.entity.PurchaseHistory;
+import org.s1n7ax.feedback.service.FeedbackService;
+import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
+import org.s1n7ax.feedback.ui.impl.FXViewController;
+
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class PurchaseHistoryController {
+
+	private Logger logger = LogManager.getLogger(PurchaseHistoryController.class);
+	private FeedbackService service = new ApacheHttpFeedbackService();
 
 	@FXML
 	private ResourceBundle resources;
@@ -32,45 +41,44 @@ public class PurchaseHistoryController {
 
 	@FXML
 	void initialize() {
-		String[] labels = { "Seller", "Product", "Price" };
-		String[] values = { "John", "iPhone 12", "$899" };
 
-		HBox hbox = new HBox();
-		hbox.setStyle("-fx-border-color: black");
-		hbox.setPadding(new Insets(10, 10, 10, 10));
-		AnchorPane.setRightAnchor(hbox, 0.0);
+		try {
 
-		// vbox 1
-		VBox vbox1 = new VBox();
-		vbox1.setPadding(new Insets(0, 0, 0, 20));
-		for (String value : labels) {
-			Label label = new Label();
-			label.setText(value);
-			vbox1.getChildren().add(label);
+			PurchaseHistory[] purchaseHistoryArr = service.getPurchaseHistory();
+			List<Parent> componentList = new ArrayList<>();
+
+			for (PurchaseHistory h : purchaseHistoryArr) {
+
+				Long purchaseHistoryId = h.getId();
+				Long sellerId = h.getProduct().getSeller().getId();
+				String seller = h.getProduct().getSeller().getName();
+				String product = h.getProduct().getProductName();
+				double price = h.getProduct().getPrice();
+
+				componentList.add(getPurchaseHistoryRecord(purchaseHistoryId, sellerId, seller, product, price));
+
+			}
+
+			ele_Container.getChildren().addAll(componentList);
+
+		} catch (Exception e) {
+
+			logger.error("error", e);
+			AlertPopup.errorAlert(e.getMessage());
+
 		}
 
-		// vbox 2
-		VBox vbox2 = new VBox();
-		vbox2.setPadding(new Insets(0, 100, 0, 20));
-		HBox.setHgrow(vbox2, Priority.ALWAYS);
-		for (String value : values) {
-			Label label = new Label();
-			label.setText(value);
-			vbox2.getChildren().add(label);
-		}
+	}
 
-		// vbox 3
-		VBox vbox3 = new VBox();
-		vbox3.setPadding(new Insets(0, 20, 0, 20));
-		vbox3.alignmentProperty();
-		vbox3.setAlignment(Pos.CENTER);
+	private Parent getPurchaseHistoryRecord(Long purchaseHistoryId, Long sellerId, String seller, String product,
+			double price) throws IOException {
 
-		Button feedback = new Button();
-		feedback.setText("Feedback");
-		vbox3.getChildren().add(feedback);
+		PurchaseHistoryRecordController ctrl = new PurchaseHistoryRecordController(purchaseHistoryId, sellerId, seller,
+				product, price);
 
-		hbox.getChildren().addAll(vbox1, vbox2, vbox3);
+		Parent view = FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_RECORD_VIEW_PATH)
+				.withController(ctrl).getView();
 
-		ele_Container.getChildren().add(hbox);
+		return view;
 	}
 }

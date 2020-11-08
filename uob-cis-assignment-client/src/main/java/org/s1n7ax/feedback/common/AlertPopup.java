@@ -13,4 +13,9 @@ public class AlertPopup {
 		Alert alert = new Alert(AlertType.ERROR, message, ButtonType.OK);
 		alert.showAndWait();
 	}
+
+	public static void successAlert(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION, message, ButtonType.OK);
+		alert.showAndWait();
+	}
 }
