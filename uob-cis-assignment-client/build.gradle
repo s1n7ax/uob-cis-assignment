@@ -29,6 +29,9 @@ dependencies {
 
     // Use JUnit test framework
 	testImplementation 'junit:junit:4.12'
+	
+	
+	implementation 'com.google.code.gson:gson:2.8.6'
 
 	// for email address format validation
 	compile 'commons-validator:commons-validator:1.7'
@@ -42,6 +45,7 @@ dependencies {
 
 	// json data handling
 	compile group: 'org.json', name: 'json', version: '20200518'
+	compile project(":uob-cis-assignment")
 }
 
 javafx {

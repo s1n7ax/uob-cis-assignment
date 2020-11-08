@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="144.0" prefWidth="600.0" style="-fx-border-color: black;" stylesheets="@../root.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="150.0">
+         <children>
+            <Label text="Seller:" />
+            <Label text="Product:" />
+            <Label text="Price:" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" minWidth="200.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label id="lbl_Seller" fx:id="lbl_Seller" onMouseClicked="#clicked_lbl_Seller" styleClass="underlined" text="John" textFill="BLUE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+            <Label id="lbl_Product" fx:id="lbl_Product" text="iPhone 12" />
+            <Label id="lbl_Price" fx:id="lbl_Price" text="799.00" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="150.0" prefWidth="150.0">
+         <children>
+            <Button fx:id="btn_Feedback" mnemonicParsing="false" onMouseClicked="#clicked_btn_Feedback" text="Feedback" />
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</HBox>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<BarChart fx:id="barChart" prefHeight="548.0" prefWidth="707.0" stylesheets="@../root.css" title="Seller Rating" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <xAxis>
+    <CategoryAxis label="Quality" prefHeight="118.0" prefWidth="541.0" side="BOTTOM" fx:id="x" />
+  </xAxis>
+  <yAxis>
+    <NumberAxis fx:id="y" label="Rating" side="LEFT" upperBound="5.0" />
+  </yAxis>
+</BarChart>
