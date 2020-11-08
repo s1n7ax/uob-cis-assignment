@@ -21,3 +21,4 @@ gradle-app.setting
 
 # ignore log files
 **/*.log
+**/log.txt
