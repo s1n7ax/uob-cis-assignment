@@ -1,2 +1,10 @@
-/main/
-/test/
+# Ignore Gradle project-specific cache directory
+.gradle
+
+uob-cis-assignment-client
+uob-cis-assignment-client/*
+uob-cis-assignment-client/.classpath
+uob-cis-assignment-server/
+
+# Ignore Gradle build output directory
+build

@@ -5,8 +5,6 @@ import java.net.URI;
 
 import javax.security.auth.login.LoginException;
 
-import com.google.common.base.VerifyException;
-
 import org.s1n7ax.feedback.model.LoginCredential;
 import org.s1n7ax.feedback.security.GoogleSignInAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.base.VerifyException;
 
 /**
  * AuthController handle authentication and authorization endpoints
@@ -89,18 +89,18 @@ public class AuthController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		switch (type.toLowerCase()) {
-			case "google": {
+		case "google": {
 
-				HttpHeaders headers = new HttpHeaders();
-				headers.setLocation(URI.create("/login/social/google"));
-				headers.add("Set-Cookie", String.format("JSESSIONID=%s;path=/", sessionId));
+			HttpHeaders headers = new HttpHeaders();
+			headers.setLocation(URI.create("/login/social/google"));
+			headers.add("Set-Cookie", String.format("JSESSIONID=%s;path=/", sessionId));
 
-				return new ResponseEntity<>(headers, HttpStatus.PERMANENT_REDIRECT);
+			return new ResponseEntity<>(headers, HttpStatus.PERMANENT_REDIRECT);
 
-			}
+		}
 
-			default:
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		default:
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		}
 	}

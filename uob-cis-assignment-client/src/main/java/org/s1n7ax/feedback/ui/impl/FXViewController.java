@@ -58,14 +58,17 @@ public class FXViewController {
 		return this;
 	}
 
-	public void show() throws IOException {
+	public void show() {
 		logger.info("showing the view");
 
-		Scene scene = getScene();
-		Stage stage = getStage();
-
-		stage.setScene(scene);
-		stage.show();
+		try {
+			Scene scene = getScene();
+			Stage stage = getStage();
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	public Parent getView() throws IOException {

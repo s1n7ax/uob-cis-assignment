@@ -12,6 +12,8 @@ public final class FXMLConfiguration {
 	public final static String LOGIN_STYLE_PATH = "login/login.css";
 	public final static String ROOT_STYLE_PATH = "login/login.css";
 
+	public final static String SOCIAL_LOGIN_LOADING_VIEW_PATH = "login/social_login_loading.fxml";
+
 	public final static String PURCHASE_HISTORY_VIEW_PATH = "purchase/purchase_history.fxml";
 	public final static String PURCHASE_HISTORY_RECORD_VIEW_PATH = "purchase/purchase_history_record.fxml";
 

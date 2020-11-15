@@ -1,12 +1,10 @@
 package org.s1n7ax.feedback.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.s1n7ax.feedback.common.AlertPopup;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.ui.impl.FXViewController;
 
@@ -60,33 +58,14 @@ public class PurchaseHistoryRecordController {
 
 		FeedbackController ctrl = new FeedbackController(purchaseHistoryId, sellerId, seller, product, price);
 
-		try {
-
-			FXViewController.getInstance().withView(FXMLConfiguration.FEEDBACK_VIEW_PATH).withController(ctrl)
-					.toStage(stage).show();
-
-		} catch (IOException e) {
-
-			logger.error("invalid fxml path", e);
-			AlertPopup.errorAlert("Application configuration error. Please contact system administrator");
-			return;
-
-		}
+		FXViewController.getInstance().withView(FXMLConfiguration.FEEDBACK_VIEW_PATH).withController(ctrl)
+				.toStage(stage).show();
 	}
 
 	@FXML
 	void clicked_lbl_Seller(MouseEvent event) {
-		try {
-
-			FXViewController.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
-					.withController(new RatingsController(sellerId)).show();
-
-		} catch (IOException e) {
-
-			logger.error(e.getMessage(), e);
-			AlertPopup.errorAlert(e.getMessage());
-
-		}
+		FXViewController.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
+				.withController(new RatingsController(sellerId)).show();
 	}
 
 	@FXML

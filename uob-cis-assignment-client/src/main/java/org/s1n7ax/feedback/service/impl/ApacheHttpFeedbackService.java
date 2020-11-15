@@ -8,8 +8,6 @@ import java.util.Map;
 
 import javax.security.auth.login.LoginException;
 
-import com.google.gson.Gson;
-
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
@@ -31,6 +29,8 @@ import org.s1n7ax.feedback.entity.Rating;
 import org.s1n7ax.feedback.http.ApacheHttpClientService;
 import org.s1n7ax.feedback.http.impl.DefaultApacheHttpClientService;
 import org.s1n7ax.feedback.service.FeedbackService;
+
+import com.google.gson.Gson;
 
 /**
  * HttpFeedbackService
@@ -67,14 +67,6 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 		logger.info("getting the session");
 
-		Cookie cookie = getCookie(FeedbackServiceConfig.SESSION_KEY, "/");
-
-		// cookie already exist
-		if (cookie != null)
-			return cookie.getValue();
-
-		logger.debug("cookie is not available in cookie store");
-
 		CloseableHttpResponse response = null;
 
 		try {
@@ -82,7 +74,7 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 			URI uri = getURIBuilder().setPath(FeedbackServiceConfig.GET_SESSION_EP).build();
 			HttpGet get = new HttpGet(uri);
 			response = (CloseableHttpResponse) client.execute(get);
-			cookie = getCookie(FeedbackServiceConfig.SESSION_KEY, "/");
+			Cookie cookie = getCookie(FeedbackServiceConfig.SESSION_KEY, "/");
 
 			if (cookie == null) {
 				logger.error(FeedbackServiceConfig.SESSION_KEY + " was not found after tyring to retrieve from server");
@@ -110,6 +102,52 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 		}
 
+	}
+
+	@Override
+	public String isAuthenticated() throws Exception {
+		logger.info("check session is authenticated");
+
+		try {
+
+			URI uri = getURIBuilder().setPath(FeedbackServiceConfig.GET_IS_AUTHENTICATED).build();
+
+			HttpGet get = new HttpGet(uri);
+			CloseableHttpResponse response = (CloseableHttpResponse) client.execute(get);
+
+			// logger.info("session id::" + getCookie(FeedbackServiceConfig.SESSION_KEY,
+			// "/"));
+
+			int status = response.getStatusLine().getStatusCode();
+
+			if (status == 200) {
+
+				logger.info("check session is authenticated - successful! authenticated::true");
+				String email = EntityUtils.toString(response.getEntity(), "UTF-8");
+				response.close();
+				return email;
+
+			}
+
+			if (status == 401) {
+
+				logger.info("check session is authenticated - successful! authenticated::false");
+				response.close();
+				return null;
+
+			}
+
+			// logger.error("check session is authenticated - failed! status::" + status + "
+			// response");
+			response.close();
+			throw new Exception("check session is authenticated - failed! status::" + status + " response");
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+			throw new Exception(e.getMessage());
+
+		}
 	}
 
 	@Override
@@ -171,6 +209,41 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 	}
 
+	@Override
+	public void logout() throws Exception {
+
+		logger.info("loging out from the system");
+
+		try {
+
+			URI uri = getURIBuilder().setPath(FeedbackServiceConfig.GET_LOGOUT_EP).build();
+
+			HttpGet get = new HttpGet(uri);
+			CloseableHttpResponse response = (CloseableHttpResponse) client.execute(get);
+
+			logger.info("session id::" + getCookie(FeedbackServiceConfig.SESSION_KEY, "/"));
+			response.close();
+
+			int status = response.getStatusLine().getStatusCode();
+
+			if (status == 204) {
+
+				logger.info("loging out from the system - successful!");
+				return;
+
+			}
+
+			logger.error("loging out from the system - failed! status::" + status + " response");
+			throw new Exception("loging out from the system - failed! status::" + status + " response");
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+			throw new Exception(e.getMessage());
+
+		}
+	}
+
 	/**
 	 * Get cookie by name and path
 	 * 
@@ -186,7 +259,7 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 	}
 
-	private URIBuilder getURIBuilder() {
+	private synchronized URIBuilder getURIBuilder() {
 
 		return new URIBuilder() //
 				.setScheme(FeedbackServiceConfig.PROTOCOL) //

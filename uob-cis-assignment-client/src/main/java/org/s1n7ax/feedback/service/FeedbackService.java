@@ -25,6 +25,18 @@ public interface FeedbackService {
 	public void login(String email, String password) throws Exception;
 
 	/**
+	 * Logs out from the system
+	 */
+	public void logout() throws Exception;
+
+	/**
+	 * Checks if the session is authenticated
+	 *
+	 * @return true if session is successfully authenticated
+	 */
+	public String isAuthenticated() throws Exception;
+
+	/**
 	 * Get customer's purchase histry
 	 * 
 	 * @throws Exception

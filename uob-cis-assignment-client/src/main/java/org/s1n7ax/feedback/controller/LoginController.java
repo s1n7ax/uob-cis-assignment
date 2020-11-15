@@ -1,18 +1,11 @@
 package org.s1n7ax.feedback.controller;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import org.apache.commons.validator.routines.EmailValidator;
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.common.AlertPopup;
-import org.s1n7ax.feedback.common.BrowserImpl;
 import org.s1n7ax.feedback.common.CSSClassSwitcher;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
-import org.s1n7ax.feedback.configuration.FeedbackServiceConfig;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
 import org.s1n7ax.feedback.ui.impl.FXViewController;
@@ -49,45 +42,11 @@ public class LoginController {
 	void clicked_btn_GoogleSignin(MouseEvent event) {
 		logger.info("clicked google signin");
 
-		FeedbackService service = new ApacheHttpFeedbackService();
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		LoadingScreenController ctrl = new LoadingScreenController(stage);
+		FXViewController.getInstance().withView(FXMLConfiguration.SOCIAL_LOGIN_LOADING_VIEW_PATH).toStage(stage)
+				.withController(ctrl).show();
 
-		String sessionId;
-
-		try {
-
-			sessionId = service.getSession();
-
-		} catch (Exception ex) {
-
-			AlertPopup.errorAlert(ex.getMessage());
-			return;
-
-		}
-
-		logger.info("open social login for session::" + sessionId);
-
-		try {
-
-			URI uri = new URIBuilder() //
-					.setScheme(FeedbackServiceConfig.PROTOCOL) //
-					.setHost(FeedbackServiceConfig.HOST) //
-					.setPort(FeedbackServiceConfig.PORT) //
-					.setPath(FeedbackServiceConfig.GET_SOCIAL_LOGIN_EP) //
-					.setParameter(FeedbackServiceConfig.SESSION_PARAM_NAME, sessionId) //
-					.build();
-
-			boolean browserOpened = openBrowser(uri.toString());
-
-			if (browserOpened) {
-				logger.info("should try to log in to system");
-			}
-
-		} catch (URISyntaxException e) {
-
-			logger.error("invalid uri", e);
-			AlertPopup.errorAlert("Application configuration error. Please contact system administrator");
-
-		}
 	}
 
 	@FXML
@@ -105,8 +64,12 @@ public class LoginController {
 		// user has successfully logged in to the style
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		try {
-			FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage).show();
+			PurchaseHistoryController ctrl = new PurchaseHistoryController();
+			FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage)
+					.withController(ctrl).show();
+
 		} catch (Exception e) {
+
 			logger.error(e.getMessage());
 			AlertPopup.errorAlert(e.getMessage());
 
@@ -128,28 +91,6 @@ public class LoginController {
 		}
 	}
 
-	private boolean openBrowser(String uri) {
-
-		try {
-
-			BrowserImpl.getInstance().launchBrowser(uri);
-			return true;
-
-		} catch (IOException ex) {
-
-			logger.error("failed to open the browser", ex);
-			AlertPopup.errorAlert("Failed to open the browser");
-
-		} catch (URISyntaxException ex) {
-
-			logger.error("invalid uri", ex);
-			AlertPopup.errorAlert("Application configuration error. Please contact system administrator");
-
-		}
-
-		return false;
-	}
-
 	private boolean basicLogin(String email, String password) {
 
 		FeedbackService service = new ApacheHttpFeedbackService();
@@ -165,4 +106,5 @@ public class LoginController {
 
 		return false;
 	}
+
 }

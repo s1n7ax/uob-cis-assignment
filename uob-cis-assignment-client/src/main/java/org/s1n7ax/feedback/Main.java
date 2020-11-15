@@ -25,6 +25,7 @@ public class Main extends Application {
 		setUserAgentStylesheet(STYLESHEET_CASPIAN);
 
 		FXViewController.getInstance().toStage(primaryStage).withView(FXMLConfiguration.LOGIN_VIEW_PATH).show();
+
 	}
 
 	@Override

@@ -16,9 +16,12 @@ import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
 import org.s1n7ax.feedback.ui.impl.FXViewController;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class PurchaseHistoryController {
 
@@ -35,12 +38,32 @@ public class PurchaseHistoryController {
 	private VBox ele_Container;
 
 	@FXML
-	void clicked_btn_Feedback(MouseEvent event) {
+	private Label lbl_Email;
+
+	@FXML
+	void clicked_btn_Logout(MouseEvent event) {
+		try {
+
+			service.logout();
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage).show();
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+			AlertPopup.errorAlert(e.getMessage());
+
+		}
 
 	}
 
 	@FXML
 	void initialize() {
+
+		String email = getEmail();
+		if (email == null)
+			email = "unknown_user";
+		lbl_Email.setText(email);
 
 		try {
 
@@ -63,11 +86,21 @@ public class PurchaseHistoryController {
 
 		} catch (Exception e) {
 
-			logger.error("error", e);
+			logger.error(e.getMessage(), e);
 			AlertPopup.errorAlert(e.getMessage());
 
 		}
 
+	}
+
+	private String getEmail() {
+		try {
+			return service.isAuthenticated();
+		} catch (Exception e) {
+			AlertPopup.errorAlert(e.getMessage());
+			logger.error(e.getMessage());
+			return null;
+		}
 	}
 
 	private Parent getPurchaseHistoryRecord(Long purchaseHistoryId, Long sellerId, String seller, String product,

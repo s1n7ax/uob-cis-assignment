@@ -46,10 +46,10 @@ public class BrowserImpl {
 		logger.info("compatibility verion::" + os);
 
 		switch (os) {
-			case "Linux": {
-				launchLinuxBrowser(url);
-			}
-				break;
+		case "Linux": {
+			launchLinuxBrowser(url);
+		}
+			break;
 		}
 
 	}

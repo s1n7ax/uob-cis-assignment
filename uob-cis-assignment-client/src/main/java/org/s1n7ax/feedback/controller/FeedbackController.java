@@ -1,6 +1,5 @@
 package org.s1n7ax.feedback.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,17 +71,8 @@ public class FeedbackController {
 
 	@FXML
 	void clicked_lbl_Seller(MouseEvent event) {
-		try {
-
-			FXViewController.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
-					.withController(new RatingsController(sellerId)).show();
-
-		} catch (IOException e) {
-
-			logger.error(e.getMessage(), e);
-			AlertPopup.errorAlert(e.getMessage());
-
-		}
+		FXViewController.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
+				.withController(new RatingsController(sellerId)).show();
 	}
 
 	@FXML
@@ -91,15 +81,9 @@ public class FeedbackController {
 		logger.info("back button clicked");
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-		try {
-
-			FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage).show();
-
-		} catch (IOException e) {
-
-			logger.error("invalid fxml path", e);
-			AlertPopup.errorAlert("Application configuration error. Please contact system administrator");
-		}
+		PurchaseHistoryController ctrl = new PurchaseHistoryController();
+		FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).withController(ctrl)
+				.toStage(stage).show();
 	}
 
 	@FXML
