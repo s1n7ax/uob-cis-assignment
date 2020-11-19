@@ -4,7 +4,7 @@ import javafx.beans.NamedArg;
 import javafx.scene.image.ImageView;
 
 /**
- * StarButton
+ * StarButton component that represent single star
  */
 public class StarButton extends ImageView {
 

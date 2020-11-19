@@ -3,7 +3,7 @@ package org.s1n7ax.feedback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
-import org.s1n7ax.feedback.ui.impl.FXViewController;
+import org.s1n7ax.feedback.ui.FXViewController;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -1,10 +1,12 @@
 package org.s1n7ax.feedback.configuration;
 
 /**
- * FeedbackServiceConfig
+ * 
+ * FeedbackServiceConfig defines constants related to the feedback service
  */
 public final class FeedbackServiceConfig {
 
+	// service
 	public final static String PROTOCOL = "http";
 	public final static String HOST = "localhost";
 	public final static int PORT = 8080;

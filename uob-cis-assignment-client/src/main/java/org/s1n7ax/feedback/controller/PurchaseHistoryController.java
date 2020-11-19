@@ -13,7 +13,7 @@ import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.entity.PurchaseHistory;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.impl.FXViewController;
+import org.s1n7ax.feedback.ui.FXViewController;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,6 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * controller of the purchase history view
+ */
 public class PurchaseHistoryController {
 
 	private Logger logger = LogManager.getLogger(PurchaseHistoryController.class);
@@ -40,6 +43,9 @@ public class PurchaseHistoryController {
 	@FXML
 	private Label lbl_Email;
 
+	/**
+	 * log out from the system and return back to login view
+	 */
 	@FXML
 	void clicked_btn_Logout(MouseEvent event) {
 		try {
@@ -57,6 +63,9 @@ public class PurchaseHistoryController {
 
 	}
 
+	/**
+	 * display purchase history record components in view
+	 */
 	@FXML
 	void initialize() {
 
@@ -93,6 +102,9 @@ public class PurchaseHistoryController {
 
 	}
 
+	/**
+	 * gets the email of currently logged in user
+	 */
 	private String getEmail() {
 		try {
 			return service.isAuthenticated();
@@ -103,6 +115,9 @@ public class PurchaseHistoryController {
 		}
 	}
 
+	/**
+	 * returns new purchase history record
+	 */
 	private Parent getPurchaseHistoryRecord(Long purchaseHistoryId, Long sellerId, String seller, String product,
 			double price) throws IOException {
 

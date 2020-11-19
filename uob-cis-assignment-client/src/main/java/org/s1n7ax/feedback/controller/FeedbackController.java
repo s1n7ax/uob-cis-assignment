@@ -12,7 +12,7 @@ import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.entity.Feedback;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.impl.FXViewController;
+import org.s1n7ax.feedback.ui.FXViewController;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,6 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * controls the feedback view
+ */
 public class FeedbackController {
 
 	private final Logger logger = LogManager.getLogger(FeedbackController.class);
@@ -34,7 +37,6 @@ public class FeedbackController {
 	private final String product;
 	private final double price;
 
-	private RateChanged onRateChange;
 	private Feedback[] feedbacks;
 
 	@FXML
@@ -69,15 +71,22 @@ public class FeedbackController {
 		this.price = price;
 	}
 
+	/**
+	 * on click on seller name, seller's rating window will be opened
+	 */
 	@FXML
 	void clicked_lbl_Seller(MouseEvent event) {
+		logger.info("seller name clicked");
+
 		FXViewController.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
 				.withController(new RatingsController(sellerId)).show();
 	}
 
+	/**
+	 * click on back button, user will be returned back to purchase history window
+	 */
 	@FXML
 	void clicked_btn_Back(MouseEvent event) {
-
 		logger.info("back button clicked");
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -86,21 +95,20 @@ public class FeedbackController {
 				.toStage(stage).show();
 	}
 
+	/**
+	 * click on submit, the changes made to ratings of the seller will be submitted
+	 * to server
+	 */
 	@FXML
 	void clicked_btn_Submit(MouseEvent event) {
-
 		logger.info("submit button clicked");
 
 		try {
-
 			service.updateFeedback(purchaseHistoryId, feedbacks);
 			AlertPopup.successAlert("Feedback ratings updated");
-
 		} catch (Exception e) {
-
 			logger.error(e.getMessage());
 			AlertPopup.errorAlert(e.getMessage());
-
 		}
 	}
 
@@ -111,7 +119,8 @@ public class FeedbackController {
 		lbl_Product.setText(product);
 		lbl_Price.setText(String.valueOf(price));
 
-		onRateChange = new RateChanged() {
+		// updates rate model on rate change in UI rate changed event callback
+		RateChanged onRateChange = new RateChanged() {
 			@Override
 			public void onRateChanged(Long questionId, int rate) {
 
@@ -128,13 +137,11 @@ public class FeedbackController {
 		};
 
 		try {
-
 			feedbacks = service.getFeedback(purchaseHistoryId);
-
 			List<Parent> questions = new ArrayList<>();
 
+			// create new feedback record component for each and every feedback passed
 			for (Feedback feedback : feedbacks) {
-
 				FeedbackRecordController ctrl = new FeedbackRecordController(feedback.getId(), feedback.getRate(),
 						feedback.getQuestion().getQuestion(), onRateChange);
 
@@ -142,16 +149,12 @@ public class FeedbackController {
 						.withController(ctrl).getView();
 
 				questions.add(view);
-
 			}
 
 			ele_FeedbackContainer.getChildren().addAll(questions);
-
 		} catch (Exception e) {
-
 			logger.error(e.getMessage(), e);
 			AlertPopup.errorAlert(e.getMessage());
-
 		}
 	}
 }

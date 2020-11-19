@@ -14,6 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Controller of feedback record 
+ */
 public class FeedbackRecordController {
 	private final Long id;
 	private int rate;
@@ -55,6 +58,9 @@ public class FeedbackRecordController {
 		this.onRateChange = onRateChange;
 	}
 
+	/**
+	 * star click event handler
+	 */
 	@FXML
 	void clicked_StarContainer(MouseEvent event) {
 		EventTarget target = event.getTarget();
@@ -67,6 +73,7 @@ public class FeedbackRecordController {
 		rate = btn.getValue();
 		updateRateInView();
 
+		// call the feedback view controller callback
 		onRateChange.onRateChanged(id, rate);
 	}
 
@@ -76,19 +83,23 @@ public class FeedbackRecordController {
 		updateRateInView();
 	}
 
+	/**
+	 * update the view for the model
+	 */
 	private void updateRateInView() {
 		int count = 0;
 		ImageView[] imageViews = { btn_Star1, btn_Star2, btn_Star3, btn_Star4, btn_Star5 };
 
+		// update selected star images
 		while (rate != 0 && count < rate) {
 			imageViews[count].setImage(selectedStar);
 			count++;
 		}
 
+		// update not selected star images
 		while (count < 5) {
 			imageViews[count].setImage(deselectedStar);
 			count++;
 		}
 	}
-
 }

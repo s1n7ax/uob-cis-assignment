@@ -17,7 +17,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 /**
- * RatingsController
+ * displays ratings of a seller in a bar chart
  */
 public class RatingsController {
 
