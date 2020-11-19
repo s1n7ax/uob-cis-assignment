@@ -8,7 +8,6 @@ plugins {
 
 group = 'org.s1n7ax.feedback'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
