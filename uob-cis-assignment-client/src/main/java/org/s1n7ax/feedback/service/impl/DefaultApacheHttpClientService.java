@@ -1,15 +1,14 @@
-package org.s1n7ax.feedback.http.impl;
+package org.s1n7ax.feedback.service.impl;
 
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.s1n7ax.feedback.http.ApacheHttpClientService;
 
 /**
  * DefaultApacheHttpClientService singleton to hold http client and cookie store
  */
-public class DefaultApacheHttpClientService implements ApacheHttpClientService {
+public class DefaultApacheHttpClientService {
 
 	private static DefaultApacheHttpClientService instance = new DefaultApacheHttpClientService();
 
@@ -25,12 +24,10 @@ public class DefaultApacheHttpClientService implements ApacheHttpClientService {
 		client = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
 	}
 
-	@Override
 	public HttpClient getClient() {
 		return client;
 	}
 
-	@Override
 	public CookieStore getCookieStore() {
 		return cookieStore;
 	}

@@ -1,4 +1,4 @@
-package org.s1n7ax.feedback.ui.impl;
+package org.s1n7ax.feedback.ui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ *
+ */
 public class FXViewController {
 
 	private Logger logger = LogManager.getLogger(FXViewController.class);
