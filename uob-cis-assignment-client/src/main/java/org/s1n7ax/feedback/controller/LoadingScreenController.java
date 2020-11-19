@@ -1,6 +1,5 @@
 package org.s1n7ax.feedback.controller;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -8,12 +7,13 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.common.AlertPopup;
-import org.s1n7ax.feedback.common.BrowserImpl;
+import org.s1n7ax.feedback.browser.Browser;
+import org.s1n7ax.feedback.browser.impl.DefaultBrowserFactory;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.configuration.FeedbackServiceConfig;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.impl.FXViewController;
+import org.s1n7ax.feedback.ui.FXViewController;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -21,6 +21,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Controls loading screen
+ */
 public class LoadingScreenController {
 	private Logger logger = LogManager.getLogger(LoadingScreenController.class);
 
@@ -34,28 +37,38 @@ public class LoadingScreenController {
 		this.stage = stage;
 	}
 
+	/**
+	 * cancels the social login
+	 */
 	@FXML
 	void clicked_btn_Cancel(MouseEvent event) {
-		if (socialLoginThread.isAlive())
+		logger.info("Social login canceled");
+
+		// social login thread is the background process that validates the user is
+		// logged in or not
+		// authorization code is sent directly from browser to service
+		// so following update client if the user is authenticated or not
+		if (socialLoginThread != null && socialLoginThread.isAlive())
 			socialLoginThread.interrupt();
 
-		FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage).show();
-
+		showLoginView();
 	}
 
 	@FXML
 	void initialize() {
-
 		FeedbackService service = new ApacheHttpFeedbackService();
 		String sessionId = null;
+		URI uri = null;
+
+		// get session
 		try {
 			sessionId = service.getSession();
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			AlertPopup.errorAlert(e.getMessage());
+			handleUIError(e);
+			return;
 		}
 
-		URI uri = null;
+		// build url
 		try {
 			uri = new URIBuilder() //
 					.setScheme(FeedbackServiceConfig.PROTOCOL) //
@@ -65,88 +78,108 @@ public class LoadingScreenController {
 					.setParameter(FeedbackServiceConfig.SESSION_PARAM_NAME, sessionId) //
 					.build();
 		} catch (URISyntaxException e) {
-			logger.error(e.getMessage(), e);
-			AlertPopup.errorAlert("Failed to open browser. Please contact system administrator");
+			handleUIError(e, "Failed to open browser application issue. Please contact system administrator");
 		}
 
-		boolean browserOpened = openBrowser(uri.toString());
-
-		if (!browserOpened) {
-			logger.error("faied to open the browser");
-			AlertPopup.errorAlert("Failed to open browser. Please contact system administrator");
-			return;
+		try {
+			openBrowser(uri.toString());
+		} catch (Exception e) {
+			handleUIError(e);
 		}
 
-		socialLoginThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				long start = System.currentTimeMillis();
-				long timeout = 30000;
-				long sleep = 1000;
-
-				try {
-					while (service.isAuthenticated() == null && (System.currentTimeMillis() - start) < timeout) {
-						Thread.sleep(sleep);
-					}
-
-					String email = service.isAuthenticated();
-
-					if (email != null) {
-						Platform.runLater(() -> {
-							PurchaseHistoryController ctrl = new PurchaseHistoryController();
-							FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH)
-									.toStage(stage).withController(ctrl).show();
-						});
-
-						return;
-					}
-
-					Platform.runLater(() -> {
-						AlertPopup.errorAlert("Social login failed");
-					});
-
-					Platform.runLater(() -> {
-						FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage)
-								.show();
-
-					});
-
-				} catch (InterruptedException e) {
-					logger.error(e.getMessage(), e);
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-					Platform.runLater(() -> {
-						AlertPopup.errorAlert(e.getMessage());
-					});
-				}
-
-			}
-		});
-
+		// start user authentication validation service
+		socialLoginThread = new Thread(new AuthenticationValidator(stage));
 		socialLoginThread.start();
 	}
 
-	private boolean openBrowser(String uri) {
-
-		try {
-
-			BrowserImpl.getInstance().launchBrowser(uri);
-			return true;
-
-		} catch (IOException ex) {
-
-			logger.error("failed to open the browser", ex);
-			AlertPopup.errorAlert("Failed to open the browser");
-
-		} catch (URISyntaxException ex) {
-
-			logger.error("invalid uri", ex);
-			AlertPopup.errorAlert("Application configuration error. Please contact system administrator");
-
-		}
-
-		return false;
+	/**
+	 * opens new browser
+	 */
+	private void openBrowser(String uri) throws Exception {
+		Browser browser = new DefaultBrowserFactory().get();
+		browser.launch(uri);
 	}
 
+	/**
+	 * log error message, opens alert popup and returns user back to login view
+	 */
+	private void handleUIError(Exception e) {
+		handleUIError(e, e.getMessage());
+	}
+
+	/**
+	 * log error message, opens alert popup and returns user back to login view
+	 */
+	private void handleUIError(Exception e, String errorMsg) {
+		logger.error(e.getMessage(), e);
+		Platform.runLater(() -> {
+			AlertPopup.errorAlert(errorMsg);
+			showLoginView();
+		});
+	}
+
+	/**
+	 * shows the login view
+	 */
+	private void showLoginView() {
+		FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage).show();
+	}
+}
+
+/**
+ * Authentication validator service
+ */
+class AuthenticationValidator implements Runnable {
+	private Logger logger = LogManager.getLogger(AuthenticationValidator.class);
+	private Stage stage;
+
+	public AuthenticationValidator(Stage stage) {
+		this.stage = stage;
+	}
+
+	/**
+	 * validate the user is logged in or not
+	 *
+	 * IF the user is not logged in, user will be returned back to login page IF
+	 * user is logged in before the given period of time, user will be navigated to
+	 * purchase history view
+	 */
+	@Override
+	public void run() {
+		FeedbackService service = new ApacheHttpFeedbackService();
+		long start = System.currentTimeMillis();
+		long timeout = 30000;
+		long sleep = 1000;
+
+		try {
+			while (service.isAuthenticated() == null && (System.currentTimeMillis() - start) < timeout) {
+				Thread.sleep(sleep);
+			}
+
+			String email = service.isAuthenticated();
+
+			if (email != null) {
+				Platform.runLater(() -> {
+					PurchaseHistoryController ctrl = new PurchaseHistoryController();
+					FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage)
+							.withController(ctrl).show();
+				});
+
+				return;
+			}
+
+			Platform.runLater(() -> {
+				AlertPopup.errorAlert("Social login timedout");
+				FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage).show();
+			});
+		} catch (InterruptedException e) {
+			logger.error(e.getMessage(), e);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			Platform.runLater(() -> {
+				AlertPopup.errorAlert(e.getMessage());
+			});
+		}
+
+	}
 }
