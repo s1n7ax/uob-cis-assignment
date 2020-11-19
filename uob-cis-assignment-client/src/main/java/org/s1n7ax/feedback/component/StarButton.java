@@ -1,4 +1,4 @@
-package org.s1n7ax.feedback.fxml_component;
+package org.s1n7ax.feedback.component;
 
 import javafx.beans.NamedArg;
 import javafx.scene.image.ImageView;

@@ -8,3 +8,4 @@ uob-cis-assignment-server/
 
 # Ignore Gradle build output directory
 build
+/main/

@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.s1n7ax.feedback.common.Resource;
+import org.s1n7ax.feedback.component.StarButton;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
-import org.s1n7ax.feedback.fxml_component.StarButton;
 
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
