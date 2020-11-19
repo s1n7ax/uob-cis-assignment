@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
-import org.s1n7ax.feedback.ui.impl.FXViewController;
+import org.s1n7ax.feedback.ui.FXViewController;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * PurchaseHistoryRecordController
+ * controls purchase history record
  */
 public class PurchaseHistoryRecordController {
 
@@ -51,17 +51,20 @@ public class PurchaseHistoryRecordController {
 		this.price = price;
 	}
 
+	/**
+	 * go to feedback view of current purchase history
+	 */
 	@FXML
 	void clicked_btn_Feedback(MouseEvent event) {
-
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
 		FeedbackController ctrl = new FeedbackController(purchaseHistoryId, sellerId, seller, product, price);
-
 		FXViewController.getInstance().withView(FXMLConfiguration.FEEDBACK_VIEW_PATH).withController(ctrl)
 				.toStage(stage).show();
 	}
 
+	/**
+	 * displays seller ratings
+	 */
 	@FXML
 	void clicked_lbl_Seller(MouseEvent event) {
 		FXViewController.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)

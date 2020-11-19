@@ -26,8 +26,6 @@ import org.s1n7ax.feedback.configuration.FeedbackServiceConfig;
 import org.s1n7ax.feedback.entity.Feedback;
 import org.s1n7ax.feedback.entity.PurchaseHistory;
 import org.s1n7ax.feedback.entity.Rating;
-import org.s1n7ax.feedback.http.ApacheHttpClientService;
-import org.s1n7ax.feedback.http.impl.DefaultApacheHttpClientService;
 import org.s1n7ax.feedback.service.FeedbackService;
 
 import com.google.gson.Gson;
@@ -41,27 +39,25 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 	private CookieStore cookieStore;
 
 	public ApacheHttpFeedbackService() {
-
-		ApacheHttpClientService service = DefaultApacheHttpClientService.getInstance();
+		DefaultApacheHttpClientService service = DefaultApacheHttpClientService.getInstance();
 		client = service.getClient();
 		cookieStore = service.getCookieStore();
-
 	}
 
 	public ApacheHttpFeedbackService(HttpClient client, CookieStore cookieStore) {
-
 		this.client = client;
 		this.cookieStore = cookieStore;
-
 	}
 
-	public ApacheHttpFeedbackService(ApacheHttpClientService service) {
-
+	public ApacheHttpFeedbackService(DefaultApacheHttpClientService service) {
 		client = service.getClient();
 		cookieStore = service.getCookieStore();
-
 	}
 
+	/**
+	 * returns the current client session
+	 * @throws exception when error getting session
+	 */
 	@Override
 	public String getSession() throws Exception {
 
@@ -104,19 +100,22 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 	}
 
+	/**
+	 * check if the user is authenticated or not
+	 *
+	 * @return email of the user will be return if user is logged in, null will be
+	 *         returned if not logged in
+	 * @throws exception when authentication check is failed
+	 */
 	@Override
 	public String isAuthenticated() throws Exception {
 		logger.info("check session is authenticated");
 
 		try {
-
 			URI uri = getURIBuilder().setPath(FeedbackServiceConfig.GET_IS_AUTHENTICATED).build();
 
 			HttpGet get = new HttpGet(uri);
 			CloseableHttpResponse response = (CloseableHttpResponse) client.execute(get);
-
-			// logger.info("session id::" + getCookie(FeedbackServiceConfig.SESSION_KEY,
-			// "/"));
 
 			int status = response.getStatusLine().getStatusCode();
 
@@ -131,25 +130,29 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 			if (status == 401) {
 
-				logger.info("check session is authenticated - successful! authenticated::false");
+				logger.info("session is not authenticated");
 				response.close();
 				return null;
 
 			}
 
-			// logger.error("check session is authenticated - failed! status::" + status + "
-			// response");
 			response.close();
+
+			logger.error("check session is authenticated - failed! status::" + status + " response");
 			throw new Exception("check session is authenticated - failed! status::" + status + " response");
-
 		} catch (Exception e) {
-
 			logger.error(e.getMessage(), e);
 			throw new Exception(e.getMessage());
-
 		}
 	}
 
+	/**
+	 * log in to the system
+	 *
+	 * @param email    email of the user
+	 * @param password password of the account
+	 * @throws exception when login failed
+	 */
 	@Override
 	public void login(String email, String password) throws Exception {
 
@@ -209,6 +212,11 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 	}
 
+	/**
+	 * logout from the system
+	 * 
+	 * @throws exception when logout is failed
+	 */
 	@Override
 	public void logout() throws Exception {
 
@@ -245,30 +253,10 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 	}
 
 	/**
-	 * Get cookie by name and path
-	 * 
-	 * @param name
-	 * @param path
-	 * @return
+	 * get purchase history for the current logged in user
+	 *
+	 * @throws exception when failed to get purchase history
 	 */
-	private Cookie getCookie(String name, String path) {
-
-		return cookieStore.getCookies().stream()
-				.filter(cookie -> (cookie.getName().equals(name) && cookie.getPath().equals(path))).findFirst()
-				.orElse(null);
-
-	}
-
-	private synchronized URIBuilder getURIBuilder() {
-
-		return new URIBuilder() //
-				.setScheme(FeedbackServiceConfig.PROTOCOL) //
-				.setHost(FeedbackServiceConfig.HOST) //
-				.setPort(FeedbackServiceConfig.PORT) //
-				.setPath(FeedbackServiceConfig.GET_SESSION_EP); //
-
-	}
-
 	@Override
 	public PurchaseHistory[] getPurchaseHistory() throws Exception {
 
@@ -319,6 +307,11 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 		}
 	}
 
+	/**
+	 * get feedback for a purchase history record
+	 * @param purchaseHistoryId id of the purchase history record
+	 * @throws exception when failed to get feedback
+	 */
 	@Override
 	public Feedback[] getFeedback(Long purchaseHistoryId) throws Exception {
 
@@ -363,6 +356,13 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 		}
 	}
 
+	/**
+	 * update feedback details for purchase history record
+	 *
+	 * @param purchaseHistoryId id of the purchase history record
+	 * @param feedbacks updated feedback array to submit
+	 * @throws exception when failed to update feedback
+	 */
 	@Override
 	public void updateFeedback(Long purchaseHistoryId, Feedback[] feedbacks) throws Exception {
 
@@ -406,6 +406,12 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 		}
 	}
 
+	/**
+	 * get ratings of a seller
+	 *
+	 * @param sellerId id of the seller to retrive data
+	 * @throws exception when failed to get ratings
+	 */
 	@Override
 	public Rating[] getRating(Long sellerId) throws Exception {
 		try {
@@ -448,4 +454,31 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 
 		}
 	}
+
+	/**
+	 * Get cookie by name and path
+	 * 
+	 * @param name
+	 * @param path
+	 * @return
+	 */
+	private Cookie getCookie(String name, String path) {
+
+		return cookieStore.getCookies().stream()
+				.filter(cookie -> (cookie.getName().equals(name) && cookie.getPath().equals(path))).findFirst()
+				.orElse(null);
+
+	}
+
+	/**
+	 * Return new uri builder builder has pre defined for the host
+	 */
+	private synchronized URIBuilder getURIBuilder() {
+		return new URIBuilder() //
+				.setScheme(FeedbackServiceConfig.PROTOCOL) //
+				.setHost(FeedbackServiceConfig.HOST) //
+				.setPort(FeedbackServiceConfig.PORT) //
+				.setPath(FeedbackServiceConfig.GET_SESSION_EP); //
+	}
+
 }
