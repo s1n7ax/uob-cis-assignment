@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label ?>
 <?import javafx.scene.image.Image ?>
 <?import javafx.scene.image.ImageView ?>
-<?import org.s1n7ax.feedback.fxml_component.StarButton ?>
+<?import org.s1n7ax.feedback.component.StarButton ?>
 <?import javafx.scene.layout.HBox ?>
 <?import javafx.scene.layout.VBox ?>
 <?import javafx.scene.text.Font ?>
