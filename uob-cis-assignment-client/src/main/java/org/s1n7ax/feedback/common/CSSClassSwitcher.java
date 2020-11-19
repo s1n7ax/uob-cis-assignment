@@ -20,27 +20,46 @@ public class CSSClassSwitcher {
 		return new CSSClassSwitcher();
 	}
 
+	/**
+	 * takes the UI component that should be handled
+	 *
+	 * @return current instance
+	 * @param contorl UI component whose classes should be switched
+	 */
 	public CSSClassSwitcher setControl(Control control) {
 		this.control = control;
 		return this;
 	}
 
+	/**
+	 * register a class in switcher class name and the class value is the same
+	 *
+	 * @param className name of the class to register
+	 * @return current instance
+	 */
 	public CSSClassSwitcher addClass(String className) {
 		addClass(className, className);
 		return this;
 	}
 
+	/**
+	 * register a class in switcher class name and the class value is the same
+	 *
+	 * @param key       key to access the class value
+	 * @param className class name that goes in to the javafx component itself
+	 * @return current instance
+	 */
 	public CSSClassSwitcher addClass(String key, String className) {
 		classMap.put(key, className);
 		return this;
 	}
 
 	/**
-	 * Changes the classes to passed class. All the other registered classes will be
-	 * removed
+	 * Changes the classes to passed class and all existing registered classes will
+	 * be removed
 	 * 
 	 * @param key
-	 * @return
+	 * @return current instance
 	 */
 	public CSSClassSwitcher changeClass(String key) {
 		// cancel change if the key is not found in the map
