@@ -6,3 +6,6 @@ uob-cis-assignment-server/.classpath
 uob-cis-assignment-server/.project
 /.gradle/
 **/*.class
+**/.project
+**/.settings
+**/log.txt
