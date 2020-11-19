@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -8,20 +7,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="740.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="740.0" prefWidth="602.0" stylesheets="@../root.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="584.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <children>
             <VBox layoutX="393.0" layoutY="145.0" prefHeight="740.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox prefHeight="204.0" prefWidth="602.0" style="-fx-background-color: #e6e6e6;" styleClass="header">
+                  <HBox prefHeight="157.0" prefWidth="602.0" style="-fx-background-color: #e6e6e6;" styleClass="header">
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="164.0" prefWidth="203.0">
                            <children>
-                              <Label text="Seller:" />
-                              <Label prefHeight="36.0" prefWidth="121.0" text="Product:" />
-                              <Label text="Price:" />
+                              <Label text="Seller:">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
+                              <Label prefHeight="36.0" prefWidth="121.0" text="Product:">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
+                              <Label text="Price:">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
                            </children>
                            <padding>
                               <Insets left="20.0" right="20.0" />
@@ -32,22 +41,31 @@
                               <Label fx:id="lbl_Seller" onMouseClicked="#clicked_lbl_Seller" styleClass="underlined" textFill="BLUE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
-                                 </cursor></Label>
-                              <Label fx:id="lbl_Product" />
-                              <Label fx:id="lbl_Price" />
+                                 </cursor>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
+                              <Label fx:id="lbl_Product">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
+                              <Label fx:id="lbl_Price">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                   <VBox fx:id="ele_FeedbackContainer" alignment="CENTER_LEFT" prefHeight="471.0" prefWidth="602.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #e6e6e6;">
+                  <HBox alignment="CENTER" prefHeight="81.0" prefWidth="602.0" style="-fx-background-color: #e6e6e6;">
                      <children>
-                        <Button fx:id="btn_Back" mnemonicParsing="false" onMouseClicked="#clicked_btn_Back" text="Back">
+                        <Button fx:id="btn_Back" mnemonicParsing="false" onMouseClicked="#clicked_btn_Back" styleClass="button-primary" text="Back">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btn_Submit" mnemonicParsing="false" onMouseClicked="#clicked_btn_Submit" text="Submit">
+                        <Button fx:id="btn_Submit" mnemonicParsing="false" onMouseClicked="#clicked_btn_Submit" styleClass="button-primary" text="Submit">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
@@ -59,8 +77,4 @@
          </children>
     </AnchorPane>
   </children>
-   <stylesheets>
-      <URL value="@../root.css" />
-      <URL value="@../root.css" />
-   </stylesheets>
 </VBox>
