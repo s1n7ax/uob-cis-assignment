@@ -3,7 +3,7 @@ package org.s1n7ax.feedback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
-import org.s1n7ax.feedback.ui.FXViewController;
+import org.s1n7ax.feedback.ui.ViewBuilder;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -24,7 +24,8 @@ public class Main extends Application {
 
 		setUserAgentStylesheet(STYLESHEET_CASPIAN);
 
-		FXViewController.getInstance().toStage(primaryStage).withView(FXMLConfiguration.LOGIN_VIEW_PATH).show();
+		ViewBuilder.getInstance().toStage(primaryStage).withView(FXMLConfiguration.LOGIN_VIEW_PATH)
+				.withTitle("Feedback: Login").show();
 
 	}
 

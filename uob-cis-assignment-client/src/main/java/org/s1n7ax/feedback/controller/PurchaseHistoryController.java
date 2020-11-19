@@ -13,7 +13,7 @@ import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.entity.PurchaseHistory;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.FXViewController;
+import org.s1n7ax.feedback.ui.ViewBuilder;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -52,7 +52,8 @@ public class PurchaseHistoryController {
 
 			service.logout();
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage).show();
+			ViewBuilder.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).withTitle("Feedback: Login")
+					.toStage(stage).show();
 
 		} catch (Exception e) {
 
@@ -124,7 +125,7 @@ public class PurchaseHistoryController {
 		PurchaseHistoryRecordController ctrl = new PurchaseHistoryRecordController(purchaseHistoryId, sellerId, seller,
 				product, price);
 
-		Parent view = FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_RECORD_VIEW_PATH)
+		Parent view = ViewBuilder.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_RECORD_VIEW_PATH)
 				.withController(ctrl).getView();
 
 		return view;

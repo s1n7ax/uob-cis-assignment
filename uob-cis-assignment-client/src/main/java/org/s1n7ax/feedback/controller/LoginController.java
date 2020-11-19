@@ -8,7 +8,7 @@ import org.s1n7ax.feedback.common.CSSClassSwitcher;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.FXViewController;
+import org.s1n7ax.feedback.ui.ViewBuilder;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -51,8 +51,8 @@ public class LoginController {
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		LoadingScreenController ctrl = new LoadingScreenController(stage);
-		FXViewController.getInstance().withView(FXMLConfiguration.SOCIAL_LOGIN_LOADING_VIEW_PATH).toStage(stage)
-				.withController(ctrl).show();
+		ViewBuilder.getInstance().withView(FXMLConfiguration.SOCIAL_LOGIN_LOADING_VIEW_PATH).toStage(stage)
+				.withTitle("Feedback: Login").withController(ctrl).show();
 
 	}
 
@@ -79,8 +79,8 @@ public class LoginController {
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		try {
 			PurchaseHistoryController ctrl = new PurchaseHistoryController();
-			FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage)
-					.withController(ctrl).show();
+			ViewBuilder.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage)
+					.withTitle("Feedback: Purchase History").withController(ctrl).show();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			AlertPopup.errorAlert(e.getMessage());

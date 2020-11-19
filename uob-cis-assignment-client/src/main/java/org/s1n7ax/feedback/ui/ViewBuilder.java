@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 /**
  *
  */
-public class FXViewController {
+public class ViewBuilder {
 
-	private Logger logger = LogManager.getLogger(FXViewController.class);
+	private Logger logger = LogManager.getLogger(ViewBuilder.class);
 
 	private Stage stage;
 	private Object controller;
@@ -26,37 +26,43 @@ public class FXViewController {
 	private String viewPath;
 	private Scene scene;
 	private String title;
+	private boolean resizable;
 
-	public static FXViewController getInstance() {
-		return new FXViewController();
+	public static ViewBuilder getInstance() {
+		return new ViewBuilder();
 	}
 
-	public FXViewController withController(Object controller) {
+	public ViewBuilder withController(Object controller) {
 		this.controller = controller;
 		return this;
 	}
 
-	public FXViewController withView(String path) {
+	public ViewBuilder withView(String path) {
 		this.viewPath = path;
 		return this;
 	}
 
-	public FXViewController withView(Parent view) {
+	public ViewBuilder withView(Parent view) {
 		this.view = view;
 		return this;
 	}
 
-	public FXViewController withScene(Scene scene) {
+	public ViewBuilder withScene(Scene scene) {
 		this.scene = scene;
 		return this;
 	}
 
-	public FXViewController withTitle(String title) {
+	public ViewBuilder withTitle(String title) {
 		this.title = title;
 		return this;
 	}
 
-	public FXViewController toStage(Stage stage) {
+	public ViewBuilder withResizable(boolean resizable) {
+		this.resizable = resizable;
+		return this;
+	}
+
+	public ViewBuilder toStage(Stage stage) {
 		this.stage = stage;
 		return this;
 	}
@@ -67,6 +73,8 @@ public class FXViewController {
 		try {
 			Scene scene = getScene();
 			Stage stage = getStage();
+
+			stage.setResizable(resizable);
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {

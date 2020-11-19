@@ -12,7 +12,7 @@ import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.entity.Feedback;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.FXViewController;
+import org.s1n7ax.feedback.ui.ViewBuilder;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -78,8 +78,8 @@ public class FeedbackController {
 	void clicked_lbl_Seller(MouseEvent event) {
 		logger.info("seller name clicked");
 
-		FXViewController.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
-				.withController(new RatingsController(sellerId)).show();
+		ViewBuilder.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
+				.withTitle("Feedback: Seller Ratings").withController(new RatingsController(sellerId)).show();
 	}
 
 	/**
@@ -91,8 +91,8 @@ public class FeedbackController {
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		PurchaseHistoryController ctrl = new PurchaseHistoryController();
-		FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).withController(ctrl)
-				.toStage(stage).show();
+		ViewBuilder.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).withController(ctrl)
+				.withTitle("Feedback: Purchase History").toStage(stage).show();
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class FeedbackController {
 				FeedbackRecordController ctrl = new FeedbackRecordController(feedback.getId(), feedback.getRate(),
 						feedback.getQuestion().getQuestion(), onRateChange);
 
-				Parent view = FXViewController.getInstance().withView(FXMLConfiguration.FEEDBACK_RECORD_VIEW_PATH)
+				Parent view = ViewBuilder.getInstance().withView(FXMLConfiguration.FEEDBACK_RECORD_VIEW_PATH)
 						.withController(ctrl).getView();
 
 				questions.add(view);

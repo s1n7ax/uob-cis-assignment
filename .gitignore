@@ -4,3 +4,5 @@ uob-cis-assignment-client/.classpath
 uob-cis-assignment-client/.project
 uob-cis-assignment-server/.classpath
 uob-cis-assignment-server/.project
+/.gradle/
+**/*.class

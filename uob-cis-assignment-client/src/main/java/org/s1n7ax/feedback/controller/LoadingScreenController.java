@@ -13,7 +13,7 @@ import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.configuration.FeedbackServiceConfig;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.FXViewController;
+import org.s1n7ax.feedback.ui.ViewBuilder;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -122,7 +122,8 @@ public class LoadingScreenController {
 	 * shows the login view
 	 */
 	private void showLoginView() {
-		FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage).show();
+		ViewBuilder.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).withTitle("Feedback: Login")
+				.toStage(stage).show();
 	}
 }
 
@@ -161,8 +162,8 @@ class AuthenticationValidator implements Runnable {
 			if (email != null) {
 				Platform.runLater(() -> {
 					PurchaseHistoryController ctrl = new PurchaseHistoryController();
-					FXViewController.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage)
-							.withController(ctrl).show();
+					ViewBuilder.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH)
+							.withTitle("Feedback: Purchase History").toStage(stage).withController(ctrl).show();
 				});
 
 				return;
@@ -170,7 +171,8 @@ class AuthenticationValidator implements Runnable {
 
 			Platform.runLater(() -> {
 				AlertPopup.errorAlert("Social login timedout");
-				FXViewController.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).toStage(stage).show();
+				ViewBuilder.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).withTitle("Feedback: Login")
+						.toStage(stage).show();
 			});
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage(), e);
