@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.common.AlertPopup;
 import org.s1n7ax.feedback.browser.Browser;
+import org.s1n7ax.feedback.browser.BrowserFactory;
 import org.s1n7ax.feedback.browser.impl.DefaultBrowserFactory;
 import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.configuration.FeedbackServiceConfig;
@@ -96,8 +97,8 @@ public class LoadingScreenController {
 	 * opens new browser
 	 */
 	private void openBrowser(String uri) throws Exception {
-		Browser browser = new DefaultBrowserFactory().get();
-		browser.launch(uri);
+		BrowserFactory factory = new DefaultBrowserFactory();
+		factory.get().launch(uri);
 	}
 
 	/**
