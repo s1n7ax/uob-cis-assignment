@@ -22,13 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
  * QuestionResource
  */
 @RestController
-public class PurchaseHistoryController {
+public class PurchaseController {
 	@Autowired
 	private PurchaseHistoryService purchaseHistoryService;
 
 	@Autowired
 	private FeedbackService feedbackService;
 
+	/**
+	 * Returns list of purchase history records of the current user
+	 * 
+	 * @return list of purchase history records
+	 */
 	@GetMapping("/purchase/history")
 	public ResponseEntity<?> getPurchaseHistory() {
 
@@ -49,6 +54,12 @@ public class PurchaseHistoryController {
 
 	}
 
+	/**
+	 * Add feedback for a purchased item
+	 *
+	 * @param purchaseHistoryId id of the purchase record
+	 * @param feedbackList list of feedback
+	 */
 	@PostMapping("/purchase/feedback")
 	public ResponseEntity<?> addFeedback(@RequestParam Long purchaseHistoryId,
 			@RequestBody List<Feedback> feedbackList) {
@@ -69,6 +80,11 @@ public class PurchaseHistoryController {
 
 	}
 
+	/**
+	 * Get feedbacks for purchased item
+	 *
+	 * @param purchaseHistoryId it of the purchase item
+	 */
 	@GetMapping("/purchase/feedback")
 	public ResponseEntity<?> getFeedback(@RequestParam Long purchaseHistoryId) {
 
