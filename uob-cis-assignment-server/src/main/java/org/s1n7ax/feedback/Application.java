@@ -19,6 +19,9 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	/**
+	 * Add data to in memory database
+	 */
 	@Bean
 	CommandLineRunner runner(CustomerRepository customerRepo, FeedbackRepository feedbackRepo,
 			PurchaseHistoryRepository purchaseHistoryRepo, QuestionRepository questionRepo, ProductRepository prodRepo,

@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * SellerRepository
+ * SellerRepository handles crud operation
  */
 @Repository
 public interface SellerRepository extends CrudRepository<Seller, Long> {

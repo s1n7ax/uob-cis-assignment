@@ -21,7 +21,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.common.base.VerifyException;
 
 /**
- * GoogleSignInAuthentication
+ * Google signin service
  */
 @Service
 public class GoogleSignInAuthentication {
@@ -37,16 +37,21 @@ public class GoogleSignInAuthentication {
 
 	private GoogleClientSecrets clientSecrets;
 
-	private GoogleClientSecrets getClientSecrets() throws FileNotFoundException, IOException {
+	/**
+	 * Read the client secret file and returns clientSecret object
+	 *
+	 * @return client secret
+	 * @throws FileNotFoundException if the secret file not found
+	 * @throws IOException if secrets file can not be read
+	 */
+	public GoogleClientSecrets getClientSecrets() throws FileNotFoundException, IOException {
 
 		if (clientSecrets != null)
 			return clientSecrets;
 
 		synchronized (GoogleClientSecrets.class) {
 			if (clientSecrets == null) {
-
 				File file = ResourceUtils.getFile(String.format("classpath:%s", clientSecretFile));
-
 				clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new FileReader(file));
 			}
 		}
@@ -55,6 +60,13 @@ public class GoogleSignInAuthentication {
 
 	}
 
+	/**
+	 * Validate authorization code and returns email of the logged in user
+	 *
+	 * @return email of the user
+	 * @throws IOException if the secrets cannot be retrieved
+	 * @throws LoginException if the authorization code is not valid
+	 */
 	public String validate(String authCode) throws IOException, LoginException {
 
 		GoogleTokenResponse res;

@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,9 @@ public class AuthController {
 
 	@Autowired
 	private GoogleSignInAuthentication googleSigninAuth;
+
+	@Autowired
+	private GoogleSignInAuthentication googleSignIn;
 
 	@Value("${oauth.google.authorization.uri}")
 	private String googleOAuthURL;

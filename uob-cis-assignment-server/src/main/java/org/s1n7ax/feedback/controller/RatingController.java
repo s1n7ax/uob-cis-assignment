@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * RatingController
+ * RatingController handles ratings
  */
 @RestController
 public class RatingController {
@@ -18,6 +18,11 @@ public class RatingController {
 	@Autowired
 	private PurchaseHistoryService service;
 
+	/**
+	 * Get ratings of a seller
+	 *
+	 * @param sellerId id of seller to get rating details
+	 */
 	@GetMapping("/rating")
 	public List<Rating> getRatings(@RequestParam Long sellerId) {
 		return service.getRatingBySeller(sellerId);

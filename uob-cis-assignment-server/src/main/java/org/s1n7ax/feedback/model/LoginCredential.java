@@ -3,7 +3,7 @@ package org.s1n7ax.feedback.model;
 import org.springframework.stereotype.Service;
 
 /**
- * LoginCredential
+ * LoginCredential model
  */
 @Service
 public class LoginCredential {

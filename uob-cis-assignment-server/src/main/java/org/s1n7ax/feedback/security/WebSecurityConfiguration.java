@@ -11,16 +11,25 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Set the web security configuration
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	/**
+	 * Configure users
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
 				.withUser(User.withUsername("srinesh@gmail.com").password("123").roles("CUSTOMER"));
 	}
 
+	/**
+	 * Configure the http security for endpoints
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -39,6 +48,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and().httpBasic();
 	}
 
+	/**
+	 * Configure the password encoder
+	 */
 	@Bean
 	public PasswordEncoder getPasswordEncorder() {
 		return NoOpPasswordEncoder.getInstance();

@@ -21,6 +21,9 @@ import org.s1n7ax.feedback.repository.SellerRepository;
  */
 public class DataCreation {
 
+	/**
+	 * Add some data to in memory database
+	 */
 	public static void create(CustomerRepository customerRepo, FeedbackRepository feedbackRepo,
 			PurchaseHistoryRepository purchaseHistoryRepo, QuestionRepository questionRepo, ProductRepository prodRepo,
 			SellerRepository sellerRepo) {

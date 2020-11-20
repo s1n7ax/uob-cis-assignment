@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 
+/**
+ * HomeController is the root
+ */
 @RestController
 public class HomeController {
 
@@ -25,6 +28,14 @@ public class HomeController {
 		return new ResponseEntity<>(headers, HttpStatus.OK);
 	}
 
+	/**
+	 * Restricted endpoint can be accessed by only authorized users This endpoint
+	 * will be used to check if the user is logged in or not when user is logged in
+	 * using social login or to get the logged in user's email address
+	 *
+	 *
+	 * @return email of the currently logged in user
+	 */
 	@GetMapping("/restricted")
 	public String restricted() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
