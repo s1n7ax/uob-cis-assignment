@@ -30,6 +30,8 @@ dependencies {
 
     // Use JUnit test framework
 	testImplementation 'junit:junit:4.12'
+	testCompile "org.testfx:testfx-junit:4.0.16-alpha"
+	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
 	
 	
 	implementation 'com.google.code.gson:gson:2.8.6'
@@ -46,6 +48,8 @@ dependencies {
 
 	// json data handling
 	compile group: 'org.json', name: 'json', version: '20200518'
+
+	// local dependencies
 	compile project(":uob-cis-assignment")
 }
 
