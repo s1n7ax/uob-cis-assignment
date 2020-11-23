@@ -25,7 +25,7 @@ public class Main extends Application {
 
 		setUserAgentStylesheet(STYLESHEET_CASPIAN);
 		DefaultErrorHandler.runHandled(() -> {
-			views.showLogin();
+			views.showLogin(primaryStage);
 		});
 	}
 

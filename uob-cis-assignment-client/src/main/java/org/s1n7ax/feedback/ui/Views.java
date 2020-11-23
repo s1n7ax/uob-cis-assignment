@@ -16,6 +16,7 @@ import org.s1n7ax.feedback.event.RateChanged;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * Views displays certain UIs in application
@@ -25,9 +26,14 @@ public class Views {
 	private final String configError = "Application configuration error. Please contact system admin";
 
 	public void showLogin() throws Exception {
+		showLogin(null);
+	}
+
+	public void showLogin(Stage stage) throws Exception {
 		try {
 			logger.debug("showing login screen");
-			ViewBuilder.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).withTitle("Login").show();
+			ViewBuilder.getInstance().withView(FXMLConfiguration.LOGIN_VIEW_PATH).withTitle("Login").withStage(stage)
+					.show();
 		} catch (IOException e) {
 			handleDefaultError(e);
 		}
@@ -122,11 +128,11 @@ public class Views {
 	public Image getSelectedStar() {
 		return new Image(Resource.getResource(FXMLConfiguration.SELECTED_STAR_IMAGE_PATH).toString());
 	}
-	
+
 	public Image getDeselectedStar() {
 		return new Image(Resource.getResource(FXMLConfiguration.DESELECTED_STAR_IMAGE_PATH).toString());
 	}
-	
+
 	private void handleDefaultError(Exception e) throws Exception {
 		AlertPopup.errorAlert(configError);
 		logger.error(e.getMessage(), e);
