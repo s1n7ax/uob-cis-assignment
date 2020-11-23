@@ -72,7 +72,12 @@ public class FeedbackRecordController {
 
 		StarButton btn = (StarButton) target;
 
-		rate = btn.getValue();
+		// if user select the same star, star will be unchecked
+		if(rate == btn.getValue())
+			rate = 0;
+		else
+			rate = btn.getValue();
+		
 		updateRateInView();
 
 		// call the feedback view controller callback
