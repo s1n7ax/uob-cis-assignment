@@ -85,13 +85,8 @@ public class SocialLoginLoadingScreenController {
 			Stage stage = (Stage) btnCancel.getScene().getWindow();
 			Exception ex = (Exception) event.getSource().getException();
 
-			if (ex instanceof InterruptedException) {
-				DefaultErrorHandler.runHandledAndClose(stage, () -> {
-					views.showLogin();
-				});
-
+			if (ex instanceof InterruptedException)
 				return;
-			}
 
 			DefaultErrorHandler.runHandledAndClose(stage, () -> {
 				views.showLogin();
