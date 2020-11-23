@@ -1,7 +1,10 @@
 package org.s1n7ax.feedback.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.security.auth.login.LoginException;
 
@@ -17,7 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,9 +40,6 @@ public class AuthController {
 
 	@Autowired
 	private GoogleSignInAuthentication googleSigninAuth;
-
-	@Autowired
-	private GoogleSignInAuthentication googleSignIn;
 
 	@Value("${oauth.google.authorization.uri}")
 	private String googleOAuthURL;
@@ -157,8 +157,12 @@ public class AuthController {
 
 		// authenticate the authentication for the current session
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		return ResponseEntity.ok(null);
-
+		
+		try {
+            File file = ResourceUtils.getFile("classpath:static/google-signin-success.html");
+            return ResponseEntity.ok(Files.readString(Paths.get(file.getAbsolutePath())));
+        } catch (IOException e) {
+        	return ResponseEntity.ok("Successfully logged in");
+        }
 	}
 }
