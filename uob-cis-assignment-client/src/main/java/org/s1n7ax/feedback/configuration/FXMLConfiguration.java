@@ -26,4 +26,7 @@ public final class FXMLConfiguration {
 	public final static String SELECTED_STAR_IMAGE_PATH = "purchase/selected_star.png";
 	public final static String DESELECTED_STAR_IMAGE_PATH = "purchase/deselected_star.png";
 
+	// pop up
+	public final static String ERROR_ALERT = "popup/error-alert.fxml";
+	public final static String SUCCESS_ALERT = "popup/success-alert.fxml";
 }

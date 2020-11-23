@@ -2,7 +2,6 @@ package org.s1n7ax.feedback.ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +10,11 @@ import org.s1n7ax.feedback.common.Resource;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- *
+ * ViewBuilder build and show fxml views
  */
 public class ViewBuilder {
 
@@ -26,7 +26,11 @@ public class ViewBuilder {
 	private String viewPath;
 	private Scene scene;
 	private String title;
-	private boolean resizable;
+	private boolean resizable = true;
+	private double width;
+	private double height;
+	private boolean isInitModalitySet;
+	private Modality modality;
 
 	public static ViewBuilder getInstance() {
 		return new ViewBuilder();
@@ -57,66 +61,115 @@ public class ViewBuilder {
 		return this;
 	}
 
+	public ViewBuilder withWidth(double width) {
+		this.width = width;
+		return this;
+	}
+
+	public ViewBuilder withHeight(double height) {
+		this.height = height;
+		return this;
+	}
+
 	public ViewBuilder withResizable(boolean resizable) {
 		this.resizable = resizable;
 		return this;
 	}
 
-	public ViewBuilder toStage(Stage stage) {
+	public ViewBuilder withStage(Stage stage) {
 		this.stage = stage;
 		return this;
 	}
-
-	public void show() {
-		logger.info("showing the view");
-
-		try {
-			Scene scene = getScene();
-			Stage stage = getStage();
-
-			stage.setResizable(resizable);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage());
-		}
+	
+	public ViewBuilder withModality(Modality modality) {
+		isInitModalitySet = true;
+		this.modality = modality;
+		return this;
 	}
 
+	public void show() throws IOException {
+		Parent view = getView();
+		Scene scene = getScene(view);
+		Stage stage = getStage();
+
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	/**
+	 * Returns the view
+	 *
+	 * IF Parent type view is set, view will be used as it is IF controller is set,
+	 * controller will be set for view
+	 *
+	 * @return loaded view
+	 * @throws IOException if loader failed to load the file
+	 */
 	public Parent getView() throws IOException {
 
-		if (view != null)
+		if (view != null) {
+			logger.debug("view is set. using existing view");
 			return view;
+		}
 
 		if (viewPath == null)
-			throw new IOException("view nor view path has been set");
+			throw new RuntimeException("view or viewPath should be set get view");
 
 		URL url = Resource.getResource(viewPath);
 		FXMLLoader loader = new FXMLLoader(url);
 
-		if (controller != null)
+		if (controller != null) {
+			logger.debug("controller is set. setting controller to loader");
 			loader.setController(controller);
+		}
 
-		return loader.load();
-
+		logger.debug("loading the view");
+		view = loader.load();
+		return view;
 	}
 
-	private Stage getStage() throws NoSuchElementException {
-		if (stage == null)
-			throw new NoSuchElementException("stage is not set");
+	/**
+	 * Returns the stage
+	 *
+	 * IF stage is not set, new stage will be created IF titlel is set, title will
+	 * be set to stage IF width and height is set, those properties will be set to
+	 * stage
+	 */
+	private Stage getStage() {
+		if (stage == null) {
+			logger.debug("stage is not set. creating new stage");
+			stage = new Stage();
+		}
 
 		if (title != null)
 			stage.setTitle(title);
 
+		if (width != 0)
+			stage.setWidth(width);
+
+		if (height != 0)
+			stage.setHeight(height);
+		
+		if(isInitModalitySet)
+			stage.initModality(modality);
+
+		stage.setResizable(resizable);
+
 		return stage;
 	}
 
-	private Scene getScene() throws IOException {
-		Parent p = getView();
-
-		if (scene != null)
-			return scene;
-
-		scene = new Scene(p);
+	/**
+	 * Returns the scene
+	 *
+	 * IF scene is not set, new scene will be created with passed view
+	 *
+	 * @param view view that should be set to existing or new scene
+	 */
+	private Scene getScene(Parent view) {
+		if (scene == null) {
+			logger.debug("scene is not set. creating new scene");
+			scene = new Scene(view);
+		}
 
 		return scene;
 	}

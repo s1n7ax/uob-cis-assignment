@@ -5,10 +5,10 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.s1n7ax.feedback.common.AlertPopup;
 import org.s1n7ax.feedback.entity.Rating;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
+import org.s1n7ax.feedback.ui.DefaultErrorHandler;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -47,8 +47,8 @@ public class RatingsController {
 
 	@FXML
 	void initialize() {
-
-		try {
+		logger.info("initializing");
+		DefaultErrorHandler.runHandled(() -> {
 			Rating[] ratings = service.getRating(sellerId);
 			XYChart.Series series = new XYChart.Series<>();
 
@@ -59,12 +59,6 @@ public class RatingsController {
 			}
 
 			barChart.getData().addAll(series);
-
-		} catch (Exception e) {
-
-			logger.error(e.getMessage(), e);
-			AlertPopup.errorAlert(e.getMessage());
-
-		}
+		});
 	}
 }

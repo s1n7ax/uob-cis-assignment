@@ -6,7 +6,7 @@ package org.s1n7ax.feedback.browser;
 public interface BrowserFactory {
 
 	/**
-	 * Returns new Browser instace
+	 * Returns new Browser instance
 	 *
 	 * @return browser instance
 	 */

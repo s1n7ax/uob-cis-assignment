@@ -3,9 +3,9 @@ package org.s1n7ax.feedback.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.s1n7ax.feedback.common.Resource;
 import org.s1n7ax.feedback.component.StarButton;
-import org.s1n7ax.feedback.configuration.FXMLConfiguration;
+import org.s1n7ax.feedback.event.RateChanged;
+import org.s1n7ax.feedback.ui.Views;
 
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
@@ -18,14 +18,16 @@ import javafx.scene.input.MouseEvent;
  * Controller of feedback record 
  */
 public class FeedbackRecordController {
+	private final Views views = new Views();
+	
 	private final Long id;
 	private int rate;
 	private final String question;
 	private final RateChanged onRateChange;
+	
 
-	private Image selectedStar = new Image(Resource.getResource(FXMLConfiguration.SELECTED_STAR_IMAGE_PATH).toString());
-	private Image deselectedStar = new Image(
-			Resource.getResource(FXMLConfiguration.DESELECTED_STAR_IMAGE_PATH).toString());
+	private Image selectedStar = views.getSelectedStar();
+	private Image deselectedStar = views.getDeselectedStar();
 
 	@FXML
 	private ResourceBundle resources;

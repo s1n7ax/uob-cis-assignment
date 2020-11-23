@@ -1,4 +1,4 @@
-package org.s1n7ax.feedback.controller;
+package org.s1n7ax.feedback.event;
 
 /**
  * Rate changed callback

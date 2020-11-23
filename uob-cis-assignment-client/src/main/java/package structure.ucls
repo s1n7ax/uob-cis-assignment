@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="org.s1n7ax.feedback.common" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/common" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1186" y="312"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="org.s1n7ax.feedback.service" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="405" y="467"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="org.s1n7ax.feedback.controller" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="598" y="252"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="org.s1n7ax.feedback.event" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/event" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="853" y="347"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="org.s1n7ax.feedback.component" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/component" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="591" y="60"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="org.s1n7ax.feedback.browser" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/browser" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="170" y="318"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="org.s1n7ax.feedback.service.impl" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/service/impl" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="575" y="647"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="org.s1n7ax.feedback.ui" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/ui" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="921" y="118"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="org.s1n7ax.feedback.browser.impl" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/browser/impl" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="171" y="129"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="org.s1n7ax.feedback.configuration" project="uob-cis-assignment-client" 
+    file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/configuration" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="971" y="634"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="22">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

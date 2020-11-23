@@ -3,15 +3,14 @@ package org.s1n7ax.feedback.controller;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.s1n7ax.feedback.common.AlertPopup;
-import org.s1n7ax.feedback.common.CSSClassSwitcher;
-import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.ViewBuilder;
+import org.s1n7ax.feedback.ui.CSSClassSwitcher;
+import org.s1n7ax.feedback.ui.Common;
+import org.s1n7ax.feedback.ui.DefaultErrorHandler;
+import org.s1n7ax.feedback.ui.Views;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -42,18 +41,15 @@ public class LoginController {
 	private ImageView btn_GoogleSignin;
 
 	/**
-	 * on social login click event, controll will be passed to the loading screen
+	 * on social login click event, control will be passed to the loading screen
 	 * view
 	 */
 	@FXML
 	void clicked_btn_GoogleSignin(MouseEvent event) {
 		logger.info("clicked google signin");
-
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		LoadingScreenController ctrl = new LoadingScreenController(stage);
-		ViewBuilder.getInstance().withView(FXMLConfiguration.SOCIAL_LOGIN_LOADING_VIEW_PATH).toStage(stage)
-				.withTitle("Feedback: Login").withController(ctrl).show();
-
+		DefaultErrorHandler.runHandledAndClose(event, () -> {
+			new Views().showSocialLogin();
+		});
 	}
 
 	/**
@@ -63,28 +59,16 @@ public class LoginController {
 	@FXML
 	void clicked_btn_Login(MouseEvent event) {
 		logger.info("clicked basic login button");
-
-		FeedbackService service = new ApacheHttpFeedbackService();
+		
+		FeedbackService service = new ApacheHttpFeedbackService();	
 		String email = txt_Email.getText();
 		String password = txt_Password.getText();
-
-		try {
+		
+		Stage stage = Common.getStage(event);
+		DefaultErrorHandler.runHandledAndClose(stage, () -> {
 			service.login(email, password);
-		} catch (Exception ex) {
-			AlertPopup.errorAlert(ex.getMessage());
-			return;
-		}
-
-		// user has successfully logged in to the system
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		try {
-			PurchaseHistoryController ctrl = new PurchaseHistoryController();
-			ViewBuilder.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).toStage(stage)
-					.withTitle("Feedback: Purchase History").withController(ctrl).show();
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			AlertPopup.errorAlert(e.getMessage());
-		}
+			new Views().showPurchaseHistory();
+		});
 	}
 
 	/**

@@ -7,21 +7,19 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.s1n7ax.feedback.common.AlertPopup;
-import org.s1n7ax.feedback.configuration.FXMLConfiguration;
 import org.s1n7ax.feedback.entity.Feedback;
+import org.s1n7ax.feedback.event.RateChanged;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.ViewBuilder;
+import org.s1n7ax.feedback.ui.DefaultErrorHandler;
+import org.s1n7ax.feedback.ui.Views;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * controls the feedback view
@@ -30,6 +28,7 @@ public class FeedbackController {
 
 	private final Logger logger = LogManager.getLogger(FeedbackController.class);
 	private final FeedbackService service = new ApacheHttpFeedbackService();
+	private final Views views = new Views();
 
 	private final Long purchaseHistoryId;
 	private final Long sellerId;
@@ -77,9 +76,9 @@ public class FeedbackController {
 	@FXML
 	void clicked_lbl_Seller(MouseEvent event) {
 		logger.info("seller name clicked");
-
-		ViewBuilder.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
-				.withTitle("Feedback: Seller Ratings").withController(new RatingsController(sellerId)).show();
+		DefaultErrorHandler.runHandled(() -> {
+			views.showRatings(sellerId);
+		});
 	}
 
 	/**
@@ -88,11 +87,9 @@ public class FeedbackController {
 	@FXML
 	void clicked_btn_Back(MouseEvent event) {
 		logger.info("back button clicked");
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-		PurchaseHistoryController ctrl = new PurchaseHistoryController();
-		ViewBuilder.getInstance().withView(FXMLConfiguration.PURCHASE_HISTORY_VIEW_PATH).withController(ctrl)
-				.withTitle("Feedback: Purchase History").toStage(stage).show();
+		DefaultErrorHandler.runHandledAndClose(event, () -> {
+			views.showPurchaseHistory();
+		});
 	}
 
 	/**
@@ -102,19 +99,15 @@ public class FeedbackController {
 	@FXML
 	void clicked_btn_Submit(MouseEvent event) {
 		logger.info("submit button clicked");
-
-		try {
+		DefaultErrorHandler.runHandled(() -> {
 			service.updateFeedback(purchaseHistoryId, feedbacks);
-			AlertPopup.successAlert("Feedback ratings updated");
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			AlertPopup.errorAlert(e.getMessage());
-		}
+			views.showSuccessAlert("Retings submitted!");
+		});
 	}
 
 	@FXML
 	void initialize() {
-
+		logger.info("initializing");
 		lbl_Seller.setText(seller);
 		lbl_Product.setText(product);
 		lbl_Price.setText(String.valueOf(price));
@@ -136,25 +129,16 @@ public class FeedbackController {
 			}
 		};
 
-		try {
+		DefaultErrorHandler.runHandled(() -> {
 			feedbacks = service.getFeedback(purchaseHistoryId);
 			List<Parent> questions = new ArrayList<>();
-
-			// create new feedback record component for each and every feedback passed
 			for (Feedback feedback : feedbacks) {
-				FeedbackRecordController ctrl = new FeedbackRecordController(feedback.getId(), feedback.getRate(),
+				Parent view = views.getFeedbackRecord(feedback.getId(), feedback.getRate(),
 						feedback.getQuestion().getQuestion(), onRateChange);
-
-				Parent view = ViewBuilder.getInstance().withView(FXMLConfiguration.FEEDBACK_RECORD_VIEW_PATH)
-						.withController(ctrl).getView();
-
 				questions.add(view);
 			}
 
 			ele_FeedbackContainer.getChildren().addAll(questions);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			AlertPopup.errorAlert(e.getMessage());
-		}
+		});
 	}
 }

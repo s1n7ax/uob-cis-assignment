@@ -5,21 +5,20 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.s1n7ax.feedback.configuration.FXMLConfiguration;
-import org.s1n7ax.feedback.ui.ViewBuilder;
+import org.s1n7ax.feedback.ui.DefaultErrorHandler;
+import org.s1n7ax.feedback.ui.Views;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 /**
  * controls purchase history record
  */
 public class PurchaseHistoryRecordController {
 
-	private Logger logger = LogManager.getLogger(PurchaseHistoryRecordController.class);
+	private final Logger logger = LogManager.getLogger(PurchaseHistoryRecordController.class);
+	private final Views views = new Views();
 
 	private final Long purchaseHistoryId;
 	private final Long sellerId;
@@ -56,10 +55,11 @@ public class PurchaseHistoryRecordController {
 	 */
 	@FXML
 	void clicked_btn_Feedback(MouseEvent event) {
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		FeedbackController ctrl = new FeedbackController(purchaseHistoryId, sellerId, seller, product, price);
-		ViewBuilder.getInstance().withView(FXMLConfiguration.FEEDBACK_VIEW_PATH).withController(ctrl)
-				.withTitle("Feedback: Customer Feedback").toStage(stage).show();
+		logger.info("feedback clicked");
+
+		DefaultErrorHandler.runHandledAndClose(event, () -> {
+			views.showFeedback(purchaseHistoryId, sellerId, seller, product, price);
+		});
 	}
 
 	/**
@@ -67,19 +67,19 @@ public class PurchaseHistoryRecordController {
 	 */
 	@FXML
 	void clicked_lbl_Seller(MouseEvent event) {
-		ViewBuilder.getInstance().toStage(new Stage()).withView(FXMLConfiguration.RATINGS_VIEW_PATH)
-				.withTitle("Feedback: Seller Ratings").withController(new RatingsController(sellerId)).show();
+		logger.info("seller rating clicked");
+
+		DefaultErrorHandler.runHandled(() -> {
+			views.showRatings(sellerId);
+		});
 	}
 
 	@FXML
 	void initialize() {
-
-		if (purchaseHistoryId == 0 || seller == null || product == null)
-			throw new RuntimeException("id, seller, product has to be set");
+		logger.info("initializing");
 
 		lbl_Seller.setText(seller);
 		lbl_Product.setText(product);
 		lbl_Price.setText(String.valueOf(price));
-
 	}
 }
