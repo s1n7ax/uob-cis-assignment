@@ -61,43 +61,43 @@ public class SocialLoginLoadingScreenController {
 			openBrowser(uri.toString());
 		});
 
-		
-		Task<Boolean> task = new AuthenticationValidatorService(5000, 300);
+		Task<Boolean> task = new AuthenticationValidatorService(FeedbackServiceConfig.SOCIAL_LOGIN_TIMEOUT,
+				FeedbackServiceConfig.SOCIAL_LOGIN_SLEEP);
 		task.setOnSucceeded((event) -> {
 			boolean isAuthenticated = (Boolean) event.getSource().getValue();
 			Stage stage = (Stage) btnCancel.getScene().getWindow();
-			
-			if(isAuthenticated) {
+
+			if (isAuthenticated) {
 				DefaultErrorHandler.runHandledAndClose(stage, () -> {
 					views.showPurchaseHistory();
 				});
 				return;
 			}
-			
+
 			DefaultErrorHandler.runHandledAndClose(stage, () -> {
 				views.showLogin();
 				views.showErrorAlert("Google Signin timedout");
 			});
 		});
-		
+
 		task.setOnFailed((event) -> {
 			Stage stage = (Stage) btnCancel.getScene().getWindow();
 			Exception ex = (Exception) event.getSource().getException();
-			
-			if(ex instanceof InterruptedException) {
+
+			if (ex instanceof InterruptedException) {
 				DefaultErrorHandler.runHandledAndClose(stage, () -> {
 					views.showLogin();
 				});
-				
+
 				return;
 			}
-			
+
 			DefaultErrorHandler.runHandledAndClose(stage, () -> {
 				views.showLogin();
 				views.showErrorAlert("Unknown error. Please contact system admin");
 			});
 		});
-		
+
 		// start user authentication validation service
 		authTask = new Thread(task);
 		authTask.start();
@@ -125,4 +125,3 @@ public class SocialLoginLoadingScreenController {
 		}
 	}
 }
-

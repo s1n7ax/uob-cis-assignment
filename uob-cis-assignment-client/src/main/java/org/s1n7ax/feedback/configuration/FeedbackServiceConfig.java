@@ -23,4 +23,8 @@ public final class FeedbackServiceConfig {
 	public final static String POST_FEEDBACKS_EP = "/purchase/feedback";
 	public final static String GET_RATING_EP = "/rating";
 	public final static String GET_IS_AUTHENTICATED = "/restricted";
+	
+	// authentication
+	public final static long SOCIAL_LOGIN_TIMEOUT = 60000;
+	public final static long SOCIAL_LOGIN_SLEEP = 500;
 }
