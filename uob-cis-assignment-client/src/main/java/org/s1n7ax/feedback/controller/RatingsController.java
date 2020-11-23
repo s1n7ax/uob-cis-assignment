@@ -33,7 +33,7 @@ public class RatingsController {
 	private URL location;
 
 	@FXML
-	private BarChart<?, ?> barChart;
+	private BarChart<String, Double> barChart;
 
 	@FXML
 	private CategoryAxis x;
@@ -44,13 +44,14 @@ public class RatingsController {
 	public RatingsController(Long sellerId) {
 		this.sellerId = sellerId;
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@FXML
 	void initialize() {
 		logger.info("initializing");
 		DefaultErrorHandler.runHandled(() -> {
 			Rating[] ratings = service.getRating(sellerId);
-			XYChart.Series series = new XYChart.Series<>();
+			XYChart.Series<String, Double> series = new XYChart.Series<>();
 
 			for (Rating r : ratings) {
 				String quality = r.getQuality().replaceAll("\\s", "\n");
