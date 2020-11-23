@@ -52,6 +52,16 @@ public class UITest extends ApplicationTest {
 
 			// basic login validation
 			email.setText("srinesh@gmail.com");
+			password.setText("1234");
+			clickOn(login);
+			
+			// should get the error message
+			Button ok = findElement("Ok");
+			assertThat(ok).isNotNull();
+			clickOn(ok);
+			
+			// log in to the system
+			email.setText("srinesh@gmail.com");
 			password.setText("123");
 			clickOn(login);
 		}
@@ -81,7 +91,6 @@ public class UITest extends ApplicationTest {
 		}
 
 		{
-			Thread.sleep(3000);
 			Label seller = findElement("#lblSeller");
 			Label product = findElement("#lblProduct");
 			Label price = findElement("#lblPrice");
@@ -121,7 +130,7 @@ public class UITest extends ApplicationTest {
 
 			clickOn(submit);
 
-			Button ok = targetWindow("Message").lookup("OK").query();
+			Button ok = findElement("Ok");
 			assertThat(ok).isNotNull();
 			clickOn(ok);
 		}
