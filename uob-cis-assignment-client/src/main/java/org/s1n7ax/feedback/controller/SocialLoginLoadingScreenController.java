@@ -49,6 +49,7 @@ public class SocialLoginLoadingScreenController {
 			authTask.interrupt();
 
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
+			service.endSession();
 			views.showLogin();
 		});
 	}

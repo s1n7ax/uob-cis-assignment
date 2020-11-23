@@ -481,4 +481,9 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 				.setPath(FeedbackServiceConfig.GET_SESSION_EP); //
 	}
 
+	@Override
+	public void endSession() throws Exception {
+		cookieStore.clear();
+	}
+
 }

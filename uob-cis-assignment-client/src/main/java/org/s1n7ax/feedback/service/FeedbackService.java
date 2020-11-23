@@ -17,6 +17,12 @@ public interface FeedbackService {
 	public String getSession() throws Exception;
 
 	/**
+	 * End the current client session
+	 * @throws Exception
+	 */
+	public void endSession() throws Exception;
+	
+	/**
 	 * Logs in to the system
 	 * 
 	 * @param email    email of the user
