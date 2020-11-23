@@ -39,10 +39,10 @@ public class UITest extends ApplicationTest {
 	@Test
 	public void test() throws Exception {
 		{
-			TextField email = findElement("#txt_Email");
-			TextField password = findElement("#txt_Password");
-			Button login = findElement("#btn_Login");
-			ImageView socialLogin = findElement("#btn_GoogleSignin");
+			TextField email = findElement("#txtEmail");
+			TextField password = findElement("#txtPassword");
+			Button login = findElement("#btnLogin");
+			ImageView socialLogin = findElement("#btnGoogleSignin");
 
 			// check the availability of components
 			assertThat(email).isNotNull();
@@ -57,13 +57,13 @@ public class UITest extends ApplicationTest {
 		}
 
 		{
-			Label email = findElement("#lbl_Email");
-			Button logout = findElement("#btn_Logout");
-			VBox container = lookup("#ele_Container").queryAs(VBox.class);
+			Label email = findElement("#lblEmail");
+			Button logout = findElement("#btnLogout");
+			VBox container = lookup("#eleContainer").queryAs(VBox.class);
 
-			Set<Label> sellers = findElements("#lbl_Seller");
-			Set<Label> products = findElements("#lbl_Product");
-			Set<Label> prices = findElements("#lbl_Price");
+			Set<Label> sellers = findElements("#lblSeller");
+			Set<Label> products = findElements("#lblProduct");
+			Set<Label> prices = findElements("#lblPrice");
 
 			assertThat(email).isNotNull();
 			assertThat(logout).isNotNull();
@@ -76,16 +76,16 @@ public class UITest extends ApplicationTest {
 			assertThat(products.iterator().next().getText()).isNotEmpty();
 			assertThat(prices.iterator().next().getText()).isNotEmpty();
 
-			Button feedback = findElement("#btn_Feedback");
+			Button feedback = findElement("#btnFeedback");
 			clickOn(feedback);
 		}
 
 		{
-			Thread.sleep(200);
-			Label seller = findElement("#lbl_Seller");
-			Label product = findElement("#lbl_Product");
-			Label price = findElement("#lbl_Price");
-			Button submit = findElement("#btn_Submit");
+			Thread.sleep(3000);
+			Label seller = findElement("#lblSeller");
+			Label product = findElement("#lblProduct");
+			Label price = findElement("#lblPrice");
+			Button submit = findElement("#btnSubmit");
 
 			assertThat(seller).isNotNull();
 			assertThat(product).isNotNull();
@@ -97,7 +97,7 @@ public class UITest extends ApplicationTest {
 
 			List<Set<StarButton>> stars = new ArrayList<Set<StarButton>>();
 			for (int i = 0; i < 5; i++) {
-				stars.add(findElements("#btn_Star" + (i + 1)));
+				stars.add(findElements("#btnStar" + (i + 1)));
 			}
 
 			List<Iterator<StarButton>> starIter = new ArrayList<Iterator<StarButton>>();

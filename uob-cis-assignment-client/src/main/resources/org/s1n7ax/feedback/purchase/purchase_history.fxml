@@ -17,7 +17,7 @@
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Label>
-            <Button fx:id="btn_Logout" mnemonicParsing="false" onMouseClicked="#btnLogoutClicked" styleClass="button-primary" text="Logout">
+            <Button fx:id="btnLogout" mnemonicParsing="false" onMouseClicked="#btnLogoutClicked" styleClass="button-primary" text="Logout">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>

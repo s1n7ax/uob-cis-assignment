@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="144.0" prefWidth="600.0" style="-fx-border-color: black;" stylesheets="@../root.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="144.0" prefWidth="600.0" style="-fx-border-color: black;" stylesheets="@../root.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="150.0">
          <children>
@@ -29,7 +29,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="150.0" prefWidth="150.0">
          <children>
-            <Button fx:id="btn_Feedback" mnemonicParsing="false" onMouseClicked="#btnFeedbackClicked" styleClass="button-primary" text="Feedback" />
+            <Button fx:id="btnFeedback" mnemonicParsing="false" onMouseClicked="#btnFeedbackClicked" styleClass="button-primary" text="Feedback" />
          </children>
       </VBox>
    </children>
