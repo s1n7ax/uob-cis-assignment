@@ -21,16 +21,16 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="txt_Email" alignment="CENTER" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="200.0" onKeyPressed="#keypressed_Email" promptText="Email">
+                  <TextField fx:id="txtEmail" alignment="CENTER" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="200.0" onKeyPressed="#emailKeypressed" promptText="Email">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <PasswordField fx:id="txt_Password" alignment="CENTER" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="200.0" promptText="Password">
+                  <PasswordField fx:id="txtPassword" alignment="CENTER" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="200.0" promptText="Password">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin></PasswordField>
-                  <Button fx:id="btn_Login" mnemonicParsing="false" onMouseClicked="#clicked_btn_Login" prefHeight="50.0" prefWidth="300.0" styleClass="button-primary" text="Log In">
+                  <Button fx:id="btntxtLogin" mnemonicParsing="false" onMouseClicked="#btnLoginClicked" prefHeight="50.0" prefWidth="300.0" styleClass="button-primary" text="Log In">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>
@@ -43,7 +43,7 @@
          <children>
             <VBox alignment="CENTER" layoutY="-53.0" prefHeight="203.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fx:id="btn_GoogleSignin" fitHeight="63.0" fitWidth="303.0" onMouseClicked="#clicked_btn_GoogleSignin" pickOnBounds="true" preserveRatio="true" styleClass="google-signin-btn" />
+                  <ImageView fx:id="txtGoogleSignin" fitHeight="63.0" fitWidth="303.0" onMouseClicked="#btnGoogleSigninClicked" pickOnBounds="true" preserveRatio="true" styleClass="google-signin-btn" />
                </children>
             </VBox>
          </children>

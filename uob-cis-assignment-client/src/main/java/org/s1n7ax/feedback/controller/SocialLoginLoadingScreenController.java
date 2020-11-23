@@ -32,13 +32,13 @@ public class SocialLoginLoadingScreenController {
 	private Thread authTask;
 
 	@FXML
-	private Button btn_Cancel;
+	private Button btnCancel;
 
 	/**
 	 * cancels the social login
 	 */
 	@FXML
-	void clicked_btn_Cancel(MouseEvent event) {
+	void btnCancelClicked(MouseEvent event) {
 		logger.info("Social login canceled");
 
 		// social login thread is the background process that validates the user is
@@ -65,7 +65,7 @@ public class SocialLoginLoadingScreenController {
 		Task<Boolean> task = new AuthenticationValidatorService(5000, 300);
 		task.setOnSucceeded((event) -> {
 			boolean isAuthenticated = (Boolean) event.getSource().getValue();
-			Stage stage = (Stage) btn_Cancel.getScene().getWindow();
+			Stage stage = (Stage) btnCancel.getScene().getWindow();
 			
 			if(isAuthenticated) {
 				DefaultErrorHandler.runHandledAndClose(stage, () -> {
@@ -81,7 +81,7 @@ public class SocialLoginLoadingScreenController {
 		});
 		
 		task.setOnFailed((event) -> {
-			Stage stage = (Stage) btn_Cancel.getScene().getWindow();
+			Stage stage = (Stage) btnCancel.getScene().getWindow();
 			Exception ex = (Exception) event.getSource().getException();
 			
 			if(ex instanceof InterruptedException) {

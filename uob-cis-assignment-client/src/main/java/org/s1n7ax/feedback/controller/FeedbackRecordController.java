@@ -36,22 +36,22 @@ public class FeedbackRecordController {
 	private URL location;
 
 	@FXML
-	private Label lbl_Question;
+	private Label lblQuestion;
 
 	@FXML
-	private ImageView btn_Star1;
+	private ImageView btnStar1;
 
 	@FXML
-	private ImageView btn_Star2;
+	private ImageView btnStar2;
 
 	@FXML
-	private ImageView btn_Star3;
+	private ImageView btnStar3;
 
 	@FXML
-	private ImageView btn_Star4;
+	private ImageView btnStar4;
 
 	@FXML
-	private ImageView btn_Star5;
+	private ImageView btnStar5;
 
 	public FeedbackRecordController(Long id, int rate, String question, RateChanged onRateChange) {
 		this.id = id;
@@ -64,7 +64,7 @@ public class FeedbackRecordController {
 	 * star click event handler
 	 */
 	@FXML
-	void clicked_StarContainer(MouseEvent event) {
+	void eleStarContainerClicked(MouseEvent event) {
 		EventTarget target = event.getTarget();
 
 		if (!(target instanceof StarButton))
@@ -81,7 +81,7 @@ public class FeedbackRecordController {
 
 	@FXML
 	void initialize() {
-		lbl_Question.setText(question);
+		lblQuestion.setText(question);
 		updateRateInView();
 	}
 
@@ -90,7 +90,7 @@ public class FeedbackRecordController {
 	 */
 	private void updateRateInView() {
 		int count = 0;
-		ImageView[] imageViews = { btn_Star1, btn_Star2, btn_Star3, btn_Star4, btn_Star5 };
+		ImageView[] imageViews = { btnStar1, btnStar2, btnStar3, btnStar4, btnStar5 };
 
 		// update selected star images
 		while (rate != 0 && count < rate) {

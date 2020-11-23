@@ -18,18 +18,18 @@
       </VBox>
       <VBox alignment="CENTER_LEFT" minWidth="200.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label id="lbl_Seller" fx:id="lbl_Seller" onMouseClicked="#clicked_lbl_Seller" styleClass="underlined" text="John" textFill="BLUE">
+            <Label id="lblSeller" fx:id="lblSeller" onMouseClicked="#lblSellerClicked" styleClass="underlined" text="John" textFill="BLUE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label id="lbl_Product" fx:id="lbl_Product" text="iPhone 12" />
-            <Label id="lbl_Price" fx:id="lbl_Price" text="799.00" />
+            <Label id="lblProduct" fx:id="lblProduct" text="iPhone 12" />
+            <Label id="lblPrice" fx:id="lblPrice" text="799.00" />
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="150.0" prefWidth="150.0">
          <children>
-            <Button fx:id="btn_Feedback" mnemonicParsing="false" onMouseClicked="#clicked_btn_Feedback" styleClass="button-primary" text="Feedback" />
+            <Button fx:id="btn_Feedback" mnemonicParsing="false" onMouseClicked="#btnFeedbackClicked" styleClass="button-primary" text="Feedback" />
          </children>
       </VBox>
    </children>

@@ -35,16 +35,16 @@ public class PurchaseHistoryController {
 	private URL location;
 
 	@FXML
-	private VBox ele_Container;
+	private VBox eleContainer;
 
 	@FXML
-	private Label lbl_Email;
+	private Label lblEmail;
 
 	/**
 	 * log out from the system and return back to login view
 	 */
 	@FXML
-	void clicked_btn_Logout(MouseEvent event) {
+	void btnLogoutClicked(MouseEvent event) {
 		logger.info("logout clicked");
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
 			service.logout();
@@ -60,7 +60,7 @@ public class PurchaseHistoryController {
 		logger.info("initializing");
 		DefaultErrorHandler.runHandled(() -> {
 			String email = service.isAuthenticated();
-			lbl_Email.setText(email);
+			lblEmail.setText(email);
 
 			PurchaseHistory[] purchaseHistoryArr = service.getPurchaseHistory();
 			List<Parent> componentList = new ArrayList<>();
@@ -76,7 +76,7 @@ public class PurchaseHistoryController {
 				componentList.add(views.getPurchaseHistoryRecord(purchaseHistoryId, sellerId, seller, product, price));
 			}
 			
-			ele_Container.getChildren().addAll(componentList);
+			eleContainer.getChildren().addAll(componentList);
 		});
 	}
 }

@@ -45,22 +45,22 @@ public class FeedbackController {
 	private URL location;
 
 	@FXML
-	private Label lbl_Seller;
+	private Label lblSeller;
 
 	@FXML
-	private Label lbl_Product;
+	private Label lblProduct;
 
 	@FXML
-	private Label lbl_Price;
+	private Label lblPrice;
 
 	@FXML
-	private VBox ele_FeedbackContainer;
+	private VBox eleFeedbackContainer;
 
 	@FXML
-	private Button btn_Back;
+	private Button btnBack;
 
 	@FXML
-	private Button btn_Submit;
+	private Button btnSubmit;
 
 	public FeedbackController(Long purchaseHistoryId, Long sellerId, String seller, String product, double price) {
 		this.purchaseHistoryId = purchaseHistoryId;
@@ -74,7 +74,7 @@ public class FeedbackController {
 	 * on click on seller name, seller's rating window will be opened
 	 */
 	@FXML
-	void clicked_lbl_Seller(MouseEvent event) {
+	void lblSellerClicked(MouseEvent event) {
 		logger.info("seller name clicked");
 		DefaultErrorHandler.runHandled(() -> {
 			views.showRatings(sellerId);
@@ -85,7 +85,7 @@ public class FeedbackController {
 	 * click on back button, user will be returned back to purchase history window
 	 */
 	@FXML
-	void clicked_btn_Back(MouseEvent event) {
+	void btnBackClicked(MouseEvent event) {
 		logger.info("back button clicked");
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
 			views.showPurchaseHistory();
@@ -97,7 +97,7 @@ public class FeedbackController {
 	 * to server
 	 */
 	@FXML
-	void clicked_btn_Submit(MouseEvent event) {
+	void btnSubmitClicked(MouseEvent event) {
 		logger.info("submit button clicked");
 		DefaultErrorHandler.runHandled(() -> {
 			service.updateFeedback(purchaseHistoryId, feedbacks);
@@ -108,9 +108,9 @@ public class FeedbackController {
 	@FXML
 	void initialize() {
 		logger.info("initializing");
-		lbl_Seller.setText(seller);
-		lbl_Product.setText(product);
-		lbl_Price.setText(String.valueOf(price));
+		lblSeller.setText(seller);
+		lblProduct.setText(product);
+		lblPrice.setText(String.valueOf(price));
 
 		// updates rate model on rate change in UI rate changed event callback
 		RateChanged onRateChange = new RateChanged() {
@@ -138,7 +138,7 @@ public class FeedbackController {
 				questions.add(view);
 			}
 
-			ele_FeedbackContainer.getChildren().addAll(questions);
+			eleFeedbackContainer.getChildren().addAll(questions);
 		});
 	}
 }

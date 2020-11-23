@@ -29,23 +29,23 @@ public class LoginController {
 			.addClass("invalid", "text-field-invalid");
 
 	@FXML
-	private TextField txt_Email;
+	private TextField txtEmail;
 
 	@FXML
-	private PasswordField txt_Password;
+	private PasswordField txtPassword;
 
 	@FXML
-	private Button btn_Login;
+	private Button btnLogin;
 
 	@FXML
-	private ImageView btn_GoogleSignin;
+	private ImageView btnGoogleSignin;
 
 	/**
 	 * on social login click event, control will be passed to the loading screen
 	 * view
 	 */
 	@FXML
-	void clicked_btn_GoogleSignin(MouseEvent event) {
+	void btnGoogleSigninClicked(MouseEvent event) {
 		logger.info("clicked google signin");
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
 			new Views().showSocialLogin();
@@ -57,12 +57,12 @@ public class LoginController {
 	 * navigated to purchase history view
 	 */
 	@FXML
-	void clicked_btn_Login(MouseEvent event) {
+	void btnLoginClicked(MouseEvent event) {
 		logger.info("clicked basic login button");
 		
 		FeedbackService service = new ApacheHttpFeedbackService();	
-		String email = txt_Email.getText();
-		String password = txt_Password.getText();
+		String email = txtEmail.getText();
+		String password = txtPassword.getText();
 		
 		Stage stage = Common.getStage(event);
 		DefaultErrorHandler.runHandledAndClose(stage, () -> {
@@ -75,12 +75,12 @@ public class LoginController {
 	 * changes the border color to indicate the validity of email entered
 	 */
 	@FXML
-	void keypressed_Email(KeyEvent event) {
-		if (EmailValidator.getInstance().isValid(txt_Email.getText())) {
-			logger.debug("valid email address found::" + txt_Email.getText());
-			textValiditySwitcher.setControl(txt_Email).changeClass("valid");
+	void emailKeypressed(KeyEvent event) {
+		if (EmailValidator.getInstance().isValid(txtEmail.getText())) {
+			logger.debug("valid email address found::" + txtEmail.getText());
+			textValiditySwitcher.setControl(txtEmail).changeClass("valid");
 		} else {
-			textValiditySwitcher.setControl(txt_Email).changeClass("invalid");
+			textValiditySwitcher.setControl(txtEmail).changeClass("invalid");
 		}
 	}
 }

@@ -33,13 +33,13 @@ public class PurchaseHistoryRecordController {
 	private URL location;
 
 	@FXML
-	private Label lbl_Seller;
+	private Label lblSeller;
 
 	@FXML
-	private Label lbl_Product;
+	private Label lblProduct;
 
 	@FXML
-	private Label lbl_Price;
+	private Label lblPrice;
 
 	public PurchaseHistoryRecordController(Long purchaseHistoryId, Long sellerId, String seller, String product,
 			double price) {
@@ -54,7 +54,7 @@ public class PurchaseHistoryRecordController {
 	 * go to feedback view of current purchase history
 	 */
 	@FXML
-	void clicked_btn_Feedback(MouseEvent event) {
+	void btnFeedbackClicked(MouseEvent event) {
 		logger.info("feedback clicked");
 
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
@@ -66,7 +66,7 @@ public class PurchaseHistoryRecordController {
 	 * displays seller ratings
 	 */
 	@FXML
-	void clicked_lbl_Seller(MouseEvent event) {
+	void lblSellerClicked(MouseEvent event) {
 		logger.info("seller rating clicked");
 
 		DefaultErrorHandler.runHandled(() -> {
@@ -78,8 +78,8 @@ public class PurchaseHistoryRecordController {
 	void initialize() {
 		logger.info("initializing");
 
-		lbl_Seller.setText(seller);
-		lbl_Product.setText(product);
-		lbl_Price.setText(String.valueOf(price));
+		lblSeller.setText(seller);
+		lblProduct.setText(product);
+		lblPrice.setText(String.valueOf(price));
 	}
 }

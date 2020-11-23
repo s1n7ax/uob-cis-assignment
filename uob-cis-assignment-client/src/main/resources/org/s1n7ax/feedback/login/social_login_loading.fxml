@@ -31,7 +31,7 @@
       </VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btn_Cancel" mnemonicParsing="false" onMouseClicked="#clicked_btn_Cancel" text="Cancel">
+            <Button fx:id="btnCancel" mnemonicParsing="false" onMouseClicked="#btnCancelClicked" text="Cancel">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
