@@ -49,6 +49,13 @@ public class FeedbackService {
 
 	}
 
+	/**
+	 * Adds the passed feedback list to database
+	 * 
+	 * @param name customer name
+	 * @param purchaseHistoryId id of the purchase
+	 * @param feedbackList feedback list to set
+	 */
 	public void addFeedbackList(String name, Long purchaseHistoryId, List<Feedback> feedbackList) {
 
 		List<Feedback> updatedFeedbackList = new ArrayList<>();
@@ -76,6 +83,12 @@ public class FeedbackService {
 
 	}
 
+	/**
+	 * Returns list of feedback 
+	 *
+	 * @param name name of the customer
+	 * @param purchaseHistoryId id of the purchase
+	 */
 	public Feedback getFeedback(String name, Long purchaseHistoryId, Long questionId) {
 		List<Feedback> feedbackList = getFeedbackList(name, purchaseHistoryId);
 

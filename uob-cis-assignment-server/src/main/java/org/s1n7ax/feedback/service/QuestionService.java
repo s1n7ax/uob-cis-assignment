@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * QuestionService
+ * QuestionService provide services related to questions
  */
 @Service
 public class QuestionService {

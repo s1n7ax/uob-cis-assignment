@@ -52,10 +52,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 * Configure the password encoder
 	 */
 	@Bean
-	public PasswordEncoder getPasswordEncorder() {
+	protected PasswordEncoder getPasswordEncorder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
 
+	/**
+	 * Override authentication manager bean
+	 * if this is not implemented, service will not be started
+	 */
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {

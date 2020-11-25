@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * PurchaseHistoryService
+ * PurchaseHistoryService handles services related to purchases
  */
 @Service
 public class PurchaseHistoryService {
@@ -41,6 +41,12 @@ public class PurchaseHistoryService {
 		return customerService.getPurchaseHistory(name);
 	}
 
+	/**
+	 * Returns list of ratings of a seller
+	 *
+	 * @param id of the seller
+	 * @return list of ratings
+	 */
 	public List<Rating> getRatingBySeller(Long sellerId) {
 
 		Map<Long, RatingCount> ratings = new HashMap<>();
@@ -64,12 +70,18 @@ public class PurchaseHistoryService {
 		List<Rating> list = new ArrayList<>();
 
 		ratings.forEach((questionId, model) -> {
-			list.add(new Rating(model.getQuestion(), model.getAvarage()));
+			list.add(new Rating(model.getQuestion(), model.getAverage()));
 		});
 
 		return list;
 	}
 
+	/**
+	 * Returns purchase history object
+	 * @param name name of the customer
+	 * @param purchaseHistoryId id of the purchase
+	 * @return purchase history object
+	 */
 	public PurchaseHistory getCustomerPurchase(String name, Long purchaseHistoryId) {
 
 		if (!customerService.isCustomerAvailable(name))
@@ -86,6 +98,12 @@ public class PurchaseHistoryService {
 
 	}
 
+	/**
+	 * Checks if the given customer has a purchase by given id
+	 * 
+	 * @param name name of the customer
+	 * @param purchaseHistoryId id of the purchase
+	 */
 	public boolean hasCustomerPurchase(String name, Long purchaseHistoryId) {
 
 		return getCustomerPurchase(name, purchaseHistoryId) != null;
@@ -93,6 +111,10 @@ public class PurchaseHistoryService {
 	}
 }
 
+/**
+ * RatingCount is only used for counting ratings
+ * Class is defined internally because this will not be used elsewhere
+ */
 final class RatingCount {
 	private String question;
 	private int count;
@@ -114,7 +136,7 @@ final class RatingCount {
 		count++;
 	}
 
-	public double getAvarage() {
+	public double getAverage() {
 		if (total == 0)
 			return 0;
 
