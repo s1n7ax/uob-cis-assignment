@@ -3,14 +3,8 @@ package org.s1n7ax.feedback.controller;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.Map;
 
-import com.google.api.client.http.HttpHeaders;
-import com.google.common.collect.Lists;
-
-import org.apache.groovy.util.Maps;
 import org.junit.jupiter.api.Test;
 import org.s1n7ax.feedback.entity.Feedback;
 import org.s1n7ax.feedback.entity.PurchaseHistory;
@@ -22,7 +16,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -31,7 +24,7 @@ import org.springframework.util.MultiValueMap;
  * HomeControllerTest
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class HomeControllerTest {
+public class ControllersTest {
 
 	@LocalServerPort
 	private int port;
