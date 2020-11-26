@@ -5,15 +5,15 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.s1n7ax.feedback.ui.DefaultErrorHandler;
 import org.s1n7ax.feedback.ui.Views;
+import org.s1n7ax.feedback.ui.commons.DefaultErrorHandler;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 /**
- * controls purchase history record
+ * Controls purchase history record
  */
 public class PurchaseHistoryRecordController {
 
@@ -41,6 +41,18 @@ public class PurchaseHistoryRecordController {
 	@FXML
 	private Label lblPrice;
 
+	/**
+	 * Initialize the controller
+	 *
+	 * @param purchaseHistoryId id of the purchase. this will be used to open
+	 *                          feedback view
+	 * @param sellerId          is of the seller. this will be used to open feedback
+	 *                          view
+	 * @param seller            name of the seller. this will be used to show data
+	 *                          the view
+	 * @param product           name of the product. this will be used to open
+	 *                          feedback view
+	 */
 	public PurchaseHistoryRecordController(Long purchaseHistoryId, Long sellerId, String seller, String product,
 			double price) {
 		this.purchaseHistoryId = purchaseHistoryId;
@@ -51,26 +63,26 @@ public class PurchaseHistoryRecordController {
 	}
 
 	/**
-	 * go to feedback view of current purchase history
+	 * Opens feedback view of current purchase history on click
 	 */
 	@FXML
 	void btnFeedbackClicked(MouseEvent event) {
 		logger.info("feedback clicked");
 
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
-			views.showFeedback(purchaseHistoryId, sellerId, seller, product, price);
+			views.getFactory().getFeedbackView(purchaseHistoryId, sellerId, seller, product, price).show();
 		});
 	}
 
 	/**
-	 * displays seller ratings
+	 * Shows seller's ratings on click
 	 */
 	@FXML
 	void lblSellerClicked(MouseEvent event) {
 		logger.info("seller rating clicked");
 
 		DefaultErrorHandler.runHandled(() -> {
-			views.showRatings(sellerId);
+			views.getFactory().getRatingsView(sellerId).show();
 		});
 	}
 

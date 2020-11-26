@@ -11,8 +11,9 @@ import org.s1n7ax.feedback.entity.Feedback;
 import org.s1n7ax.feedback.event.RateChanged;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.DefaultErrorHandler;
+import org.s1n7ax.feedback.ui.Parents;
 import org.s1n7ax.feedback.ui.Views;
+import org.s1n7ax.feedback.ui.commons.DefaultErrorHandler;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -22,13 +23,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 /**
- * controls the feedback view
+ * Controls the feedback view
  */
 public class FeedbackController {
 
 	private final Logger logger = LogManager.getLogger(FeedbackController.class);
 	private final FeedbackService service = new ApacheHttpFeedbackService();
 	private final Views views = new Views();
+	private final Parents parents = new Parents();
 
 	private final Long purchaseHistoryId;
 	private final Long sellerId;
@@ -62,6 +64,17 @@ public class FeedbackController {
 	@FXML
 	private Button btnSubmit;
 
+	/**
+	 * Initialize the controller
+	 *
+	 * @param purchaseHistoryId id of the purchase. this id will be used to retrieve
+	 *                          and set data in server
+	 * @param sellerId          id if the seller. this will be used to retrieve and
+	 *                          set data in the server
+	 * @param seller            seller name to display in the view
+	 * @param product           product name to display in the view
+	 * @param price             price to display in the view
+	 */
 	public FeedbackController(Long purchaseHistoryId, Long sellerId, String seller, String product, double price) {
 		this.purchaseHistoryId = purchaseHistoryId;
 		this.sellerId = sellerId;
@@ -71,37 +84,36 @@ public class FeedbackController {
 	}
 
 	/**
-	 * on click on seller name, seller's rating window will be opened
+	 * Opens seller's rating window on click
 	 */
 	@FXML
 	void lblSellerClicked(MouseEvent event) {
 		logger.info("seller name clicked");
 		DefaultErrorHandler.runHandled(() -> {
-			views.showRatings(sellerId);
+			views.getFactory().getRatingsView(sellerId).show();
 		});
 	}
 
 	/**
-	 * click on back button, user will be returned back to purchase history window
+	 * User will be sent back to purchase history window on click
 	 */
 	@FXML
 	void btnBackClicked(MouseEvent event) {
 		logger.info("back button clicked");
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
-			views.showPurchaseHistory();
+			views.getFactory().getPurchaseHistoryView().show();
 		});
 	}
 
 	/**
-	 * click on submit, the changes made to ratings of the seller will be submitted
-	 * to server
+	 * Submits rating changes to server on click
 	 */
 	@FXML
 	void btnSubmitClicked(MouseEvent event) {
 		logger.info("submit button clicked");
 		DefaultErrorHandler.runHandled(() -> {
 			service.updateFeedback(purchaseHistoryId, feedbacks);
-			views.showSuccessAlert("Retings submitted!");
+			views.getFactory().getSuccessAlertView("Ratings submitted!").show();
 		});
 	}
 
@@ -133,9 +145,9 @@ public class FeedbackController {
 			feedbacks = service.getFeedback(purchaseHistoryId);
 			List<Parent> questions = new ArrayList<>();
 			for (Feedback feedback : feedbacks) {
-				Parent view = views.getFeedbackRecord(feedback.getId(), feedback.getRate(),
+				Parent parent = parents.getFactory().getFeedbackRecordParent(feedback.getId(), feedback.getRate(),
 						feedback.getQuestion().getQuestion(), onRateChange);
-				questions.add(view);
+				questions.add(parent);
 			}
 
 			eleFeedbackContainer.getChildren().addAll(questions);

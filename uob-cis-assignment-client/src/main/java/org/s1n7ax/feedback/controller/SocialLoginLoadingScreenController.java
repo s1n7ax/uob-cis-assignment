@@ -12,8 +12,8 @@ import org.s1n7ax.feedback.configuration.FeedbackServiceConfig;
 import org.s1n7ax.feedback.service.AuthenticationValidatorService;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.DefaultErrorHandler;
 import org.s1n7ax.feedback.ui.Views;
+import org.s1n7ax.feedback.ui.commons.DefaultErrorHandler;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -35,7 +35,7 @@ public class SocialLoginLoadingScreenController {
 	private Button btnCancel;
 
 	/**
-	 * cancels the social login
+	 * Cancels the social login on click Shows login view
 	 */
 	@FXML
 	void btnCancelClicked(MouseEvent event) {
@@ -50,7 +50,7 @@ public class SocialLoginLoadingScreenController {
 
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
 			service.endSession();
-			views.showLogin();
+			views.getFactory().getLoginView().show();
 		});
 	}
 
@@ -70,14 +70,14 @@ public class SocialLoginLoadingScreenController {
 
 			if (isAuthenticated) {
 				DefaultErrorHandler.runHandledAndClose(stage, () -> {
-					views.showPurchaseHistory();
+					views.getFactory().getPurchaseHistoryView().show();
 				});
 				return;
 			}
 
 			DefaultErrorHandler.runHandledAndClose(stage, () -> {
-				views.showLogin();
-				views.showErrorAlert("Google Signin timedout");
+				views.getFactory().getLoginView().show();
+				views.getFactory().getErrorAlertView("Google Signin timeout").show();
 			});
 		});
 
@@ -89,8 +89,8 @@ public class SocialLoginLoadingScreenController {
 				return;
 
 			DefaultErrorHandler.runHandledAndClose(stage, () -> {
-				views.showLogin();
-				views.showErrorAlert("Unknown error. Please contact system admin");
+				views.getFactory().getLoginView().show();
+				views.getFactory().getErrorAlertView("Unknown error. Please contact system admin").show();
 			});
 		});
 
@@ -100,13 +100,18 @@ public class SocialLoginLoadingScreenController {
 	}
 
 	/**
-	 * opens new browser
+	 * Opens new browser
 	 */
 	private void openBrowser(String uri) throws Exception {
 		BrowserFactory factory = new DefaultBrowserFactory();
 		factory.get().launch(uri);
 	}
 
+	/**
+	 * Construct social login URL
+	 *
+	 * @param sessionId current session id
+	 */
 	private URI getGoogleSocialLoginURI(String sessionId) throws Exception {
 		try {
 			return new URIBuilder() //

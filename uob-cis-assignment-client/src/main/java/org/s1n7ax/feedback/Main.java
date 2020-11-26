@@ -2,8 +2,8 @@ package org.s1n7ax.feedback;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.s1n7ax.feedback.ui.DefaultErrorHandler;
 import org.s1n7ax.feedback.ui.Views;
+import org.s1n7ax.feedback.ui.commons.DefaultErrorHandler;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -25,7 +25,7 @@ public class Main extends Application {
 
 		setUserAgentStylesheet(STYLESHEET_CASPIAN);
 		DefaultErrorHandler.runHandled(() -> {
-			views.showLogin(primaryStage);
+			views.getFactory().getLoginView(primaryStage).show();
 		});
 	}
 

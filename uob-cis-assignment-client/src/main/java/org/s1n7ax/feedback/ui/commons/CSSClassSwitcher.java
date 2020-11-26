@@ -1,4 +1,4 @@
-package org.s1n7ax.feedback.ui;
+package org.s1n7ax.feedback.ui.commons;
 
 import java.util.HashMap;
 import java.util.Map;

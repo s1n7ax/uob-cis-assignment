@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.entity.Rating;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.DefaultErrorHandler;
+import org.s1n7ax.feedback.ui.commons.DefaultErrorHandler;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -17,7 +17,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 /**
- * displays ratings of a seller in a bar chart
+ * Displays ratings of a seller in a bar chart
  */
 public class RatingsController {
 
@@ -41,10 +41,18 @@ public class RatingsController {
 	@FXML
 	private NumberAxis y;
 
+	/**
+	 * Initialize controller
+	 *
+	 * @param sellerId id of the seller. this will be used to retrieve data
+	 */
 	public RatingsController(Long sellerId) {
 		this.sellerId = sellerId;
 	}
-	
+
+	/**
+	 * Updates bar chard details
+	 */
 	@SuppressWarnings("unchecked")
 	@FXML
 	void initialize() {

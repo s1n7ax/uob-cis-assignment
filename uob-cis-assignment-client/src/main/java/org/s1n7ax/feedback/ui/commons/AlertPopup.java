@@ -1,13 +1,14 @@
-package org.s1n7ax.feedback.ui;
+package org.s1n7ax.feedback.ui.commons;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.s1n7ax.feedback.ui.Views;
 
 /**
  * Display UI alert messages
  */
 public class AlertPopup {
-	
+
 	private static final Logger logger = LogManager.getLogger(AlertPopup.class);
 	private static final Views views = new Views();
 
@@ -18,7 +19,11 @@ public class AlertPopup {
 	 */
 	public static void errorAlert(String message) {
 		logger.info("error alert message::" + message);
-		views.showErrorAlert(message);
+		try {
+			views.getFactory().getErrorAlertView(message).show();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -28,7 +33,11 @@ public class AlertPopup {
 	 */
 	public static void successAlert(String message) {
 		logger.info("success alert message::" + message);
-		views.showSuccessAlert(message);
+		try {
+			views.getFactory().getSuccessAlertView(message).show();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 }

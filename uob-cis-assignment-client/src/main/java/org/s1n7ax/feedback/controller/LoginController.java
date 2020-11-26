@@ -5,10 +5,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.s1n7ax.feedback.service.FeedbackService;
 import org.s1n7ax.feedback.service.impl.ApacheHttpFeedbackService;
-import org.s1n7ax.feedback.ui.CSSClassSwitcher;
-import org.s1n7ax.feedback.ui.Common;
-import org.s1n7ax.feedback.ui.DefaultErrorHandler;
 import org.s1n7ax.feedback.ui.Views;
+import org.s1n7ax.feedback.ui.commons.CSSClassSwitcher;
+import org.s1n7ax.feedback.ui.commons.Common;
+import org.s1n7ax.feedback.ui.commons.DefaultErrorHandler;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +24,7 @@ import javafx.stage.Stage;
  */
 public class LoginController {
 	private Logger logger = LogManager.getLogger(LoginController.class);
+	private Views views = new Views();
 
 	private CSSClassSwitcher textValiditySwitcher = CSSClassSwitcher.getInstance().addClass("valid", "text-field-valid")
 			.addClass("invalid", "text-field-invalid");
@@ -41,38 +42,43 @@ public class LoginController {
 	private ImageView btnGoogleSignin;
 
 	/**
-	 * on social login click event, control will be passed to the loading screen
-	 * view
+	 * Opens social login loading screen
 	 */
 	@FXML
 	void btnGoogleSigninClicked(MouseEvent event) {
 		logger.info("clicked google signin");
 		DefaultErrorHandler.runHandledAndClose(event, () -> {
-			new Views().showSocialLogin();
+			views.getFactory().getSocialLoginView().show();
 		});
 	}
 
 	/**
-	 * on login click event handler IF user login was a success, user will be
-	 * navigated to purchase history view
+	 * Sends login request to service
+	 *
+	 * IF login credentials are correct, purchase history view will be opened IF
+	 * login credentials are incorrect, user will be alerted
 	 */
 	@FXML
 	void btnLoginClicked(MouseEvent event) {
 		logger.info("clicked basic login button");
-		
-		FeedbackService service = new ApacheHttpFeedbackService();	
+
+		FeedbackService service = new ApacheHttpFeedbackService();
 		String email = txtEmail.getText();
 		String password = txtPassword.getText();
-		
+
 		Stage stage = Common.getStage(event);
 		DefaultErrorHandler.runHandledAndClose(stage, () -> {
 			service.login(email, password);
-			new Views().showPurchaseHistory();
+			views.getFactory().getPurchaseHistoryView().show();
+			;
 		});
 	}
 
 	/**
-	 * changes the border color to indicate the validity of email entered
+	 * Changes the border color to on email entered
+	 *
+	 * IF correct email syntax, border color will be green IF incorrect email
+	 * syntax, border color will be red
 	 */
 	@FXML
 	void emailKeypressed(KeyEvent event) {
