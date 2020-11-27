@@ -3,65 +3,65 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <package id="1" language="java" name="org.s1n7ax.feedback.common" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/common" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="688" y="247"/>    
+    <position height="-1" width="-1" x="616" y="146"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="2" language="java" name="org.s1n7ax.feedback.service" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/service" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="314" y="734"/>    
+    <position height="-1" width="-1" x="230" y="570"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="3" language="java" name="org.s1n7ax.feedback.ui.commons" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/ui/commons" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1151" y="718"/>    
+    <position height="-1" width="-1" x="1078" y="654"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="4" language="java" name="org.s1n7ax.feedback.controller" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/controller" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="723" y="487"/>    
+    <position height="-1" width="-1" x="617" y="386"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="5" language="java" name="org.s1n7ax.feedback.event" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/event" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1030" y="353"/>    
+    <position height="-1" width="-1" x="926" y="281"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="6" language="java" name="org.s1n7ax.feedback.component" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/component" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="502" y="912"/>    
+    <position height="-1" width="-1" x="315" y="764"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="7" language="java" name="org.s1n7ax.feedback.ui.impl" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/ui/impl" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="962" y="75"/>    
+    <position height="-1" width="-1" x="952" y="35"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="8" language="java" name="org.s1n7ax.feedback.browser" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/browser" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1097" y="878"/>    
+    <position height="-1" width="-1" x="898" y="771"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="9" language="java" name="org.s1n7ax.feedback.service.impl" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/service/impl" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="139" y="535"/>    
+    <position height="-1" width="-1" x="141" y="371"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="10" language="java" name="org.s1n7ax.feedback.ui" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/ui" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1340" y="451"/>    
+    <position height="-1" width="-1" x="1204" y="431"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="11" language="java" name="org.s1n7ax.feedback.browser.impl" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/browser/impl" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="731" y="984"/>    
+    <position height="-1" width="-1" x="598" y="814"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="12" language="java" name="org.s1n7ax.feedback.configuration" project="uob-cis-assignment-client" 
     file="/uob-cis-assignment-client/src/main/java/org/s1n7ax/feedback/configuration" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="368" y="134"/>    
+    <position height="-1" width="-1" x="334" y="32"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <dependency id="13">    
