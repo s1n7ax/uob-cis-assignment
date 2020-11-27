@@ -10,12 +10,20 @@ import org.apache.http.impl.client.HttpClientBuilder;
  */
 public class DefaultApacheHttpClientService {
 
-	private static DefaultApacheHttpClientService instance = new DefaultApacheHttpClientService();
+	private static DefaultApacheHttpClientService instance;
 
 	private HttpClient client;
 	private CookieStore cookieStore;
 
 	public static DefaultApacheHttpClientService getInstance() {
+		if(instance != null)
+			return instance;
+		
+		synchronized (DefaultApacheHttpClientService.class) {
+			if(instance == null)
+				instance = new DefaultApacheHttpClientService();
+		}
+		
 		return instance;
 	}
 
