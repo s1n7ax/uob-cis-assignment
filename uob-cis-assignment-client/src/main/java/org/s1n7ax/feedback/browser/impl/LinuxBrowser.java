@@ -1,19 +1,18 @@
 package org.s1n7ax.feedback.browser.impl;
 
-import org.s1n7ax.feedback.browser.Browser;
-
-import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.s1n7ax.feedback.browser.Browser;
+import org.s1n7ax.feedback.browser.DefaultBrowserOpener;
 
 /**
  * Handle browser commands in Linux platform
  */
-public class LinuxBrowser implements Browser {
+public class LinuxBrowser extends DefaultBrowserOpener implements Browser {
 	private Logger logger = LogManager.getLogger(LinuxBrowser.class);
 
 	/**
@@ -46,7 +45,7 @@ public class LinuxBrowser implements Browser {
 	private void launchBrowser(URI uri) throws Exception {
 		// tries to open the default browser using java.awt
 		try {
-			Desktop.getDesktop().browse(uri);
+			openDefaultBrowser(uri.toString());
 		} catch (UnsupportedOperationException e) {
 			logger.warn(e.getMessage(), e);
 		}
