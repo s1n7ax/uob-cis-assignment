@@ -123,6 +123,7 @@ public class ControllersTest {
 		}
 	}
 
+	@Test
 	public void sellerRatingCheck() throws Exception {
 		PurchaseHistory[] history = purchaseHistoryResourceCheck();
 
