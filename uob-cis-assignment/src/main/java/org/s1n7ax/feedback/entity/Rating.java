@@ -5,6 +5,9 @@ public class Rating {
 	private String quality;
 	private double rating;
 
+	public Rating() {
+	}
+	
 	public Rating(String quality, double rating) {
 		this.quality = quality;
 		this.rating = rating;

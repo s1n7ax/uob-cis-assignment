@@ -21,12 +21,12 @@ public class Product {
 
 	public Product() {
 	}
-	
+
 	public Product(String productName, double price) {
 		this.productName = productName;
 		this.price = price;
 	}
-	
+
 	public Product(String productName, double price, Seller seller) {
 		this.productName = productName;
 		this.price = price;
