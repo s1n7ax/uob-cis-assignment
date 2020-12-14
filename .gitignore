@@ -2,6 +2,7 @@
 **/*log.txt
 /.gradle/
 
+
 **/*.class
 **/.classpath
 **/.project
