@@ -1,0 +1,201 @@
+swagger: "2.0"
+info:
+  description: "feedback service for online "
+  version: "1.0.0"
+  title: "Feedback Service"
+host: "localhost:8080"
+basePath: "/"
+tags:
+
+- name: "home"
+  description: "home methods"
+
+- name: "auth"
+  description: "authentication methods"
+  
+- name: "purchase"
+  description: "purchase services"
+  
+  
+schemes:
+- "http"
+
+
+paths:
+  /:
+    get:
+      tags:
+      - "home"
+      summary: "service root"
+      description: "Returns the session details"
+      responses:
+          "200":
+            description: "setCookie session response"
+  
+  /restricted:
+    get:
+      tags:
+      - "home"
+      summary: "restricted endpoint"
+      description: "Allows only authenticated users"
+      responses:
+          "200":
+            description: "authenticated user"
+          "401":
+            description: "not authenticated user"
+      
+  /login:
+    post:
+      tags:
+      - "auth"
+      summary: "basic log in to the service"
+      description: ""
+      operationId: "basicLogin"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "login redentials"
+        required: true
+        schema:
+          $ref: "#/definitions/LoginCredentials"
+
+      responses:
+        "401":
+          description: "invalid login credentials"
+
+  /login/social:
+    get:
+      tags:
+      - "auth"
+      summary: "log in to the service using social login"
+      description: ""
+      operationId: "sicialLogin"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        type: "string"
+        name: "session"
+        description: "session details"
+        required: true
+        
+      - in: "query"
+        type: "string"
+        name: "socialType"
+        description: "session details"
+        required: false
+
+
+      responses:
+        "401":
+          description: "invalid session details"
+          
+  /oauth/google:
+    get:
+      tags:
+      - "auth"
+      summary: "google OAuth2 authorization validation"
+      description: ""
+      operationId: "googleSignin"
+      parameters:
+      - in: "query"
+        type: "string"
+        name: "code"
+        description: "authorization code"
+        required: true
+
+      responses:
+        "401":
+          description: "invalid login credentials"
+  
+  /purchase/history:
+    get:
+      tags:
+      - "purchase"
+      summary: "returns purchase history for the current user"
+      description: ""
+      operationId: "getFeedback"
+      responses:
+        "401":
+          description: "invalid login credentials"
+          
+        "200":
+          description: "returns purchase history"
+          
+  /purchase/feedback:
+    get:
+      tags:
+      - "purchase"
+      summary: "get feedback received for a seller"
+      description: ""
+      operationId: "getSellerFeedback"
+      parameters:
+      - in: "body"
+        schema:
+          $ref: "#/definitions/Feedback"
+        name: "customer feedback"
+        required: true
+        
+        
+      responses:
+        "401":
+          description: "invalid login credentials"
+
+    post:
+      tags:
+      - "purchase"
+      summary: "set feedback for a seller"
+      description: ""
+      operationId: "setSellerFeedback"
+      parameters:
+      - in: "query"
+        type: "string"
+        name: "sellerId"
+        description: "id of the seller"
+        required: true
+        
+        
+      responses:
+        "401":
+          description: "invalid login credentials"
+  
+  /rating:
+    get:
+      tags:
+      - "purchase"
+      summary: "returns seller ratings"
+      description: ""
+      operationId: "getSellerRatings"
+      parameters:
+      - in: "query"
+        type: "string"
+        name: "sellerId"
+        
+        
+      responses:
+        "401":
+          description: "invalid login credentials"   
+  
+definitions:
+  LoginCredentials:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+        
+  Feedback:
+    type: "array"
+    items:
+      properties:
+        id:
+          type: "string"
+        question:
+          type: "object"
