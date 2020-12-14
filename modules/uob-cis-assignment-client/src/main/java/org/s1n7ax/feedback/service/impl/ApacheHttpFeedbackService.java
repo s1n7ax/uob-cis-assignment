@@ -21,7 +21,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONObject;
 import org.s1n7ax.feedback.configuration.FeedbackServiceConfig;
 import org.s1n7ax.feedback.entity.Feedback;
 import org.s1n7ax.feedback.entity.PurchaseHistory;
@@ -161,9 +160,9 @@ public class ApacheHttpFeedbackService implements FeedbackService {
 		CloseableHttpResponse response = null;
 
 		try {
-
-			JSONObject obj = new JSONObject(Map.of("email", email, "password", password));
-			StringEntity reqBody = new StringEntity(obj.toString(), ContentType.APPLICATION_JSON);
+			Gson gson = new Gson();
+			String obj = gson.toJson(Map.of("email", email, "password", password));
+			StringEntity reqBody = new StringEntity(obj, ContentType.APPLICATION_JSON);
 
 			URI uri = getURIBuilder().setPath(FeedbackServiceConfig.POST_BASIC_LOGIN_EP).build();
 			HttpPost post = new HttpPost(uri);

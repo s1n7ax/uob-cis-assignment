@@ -22,18 +22,12 @@ repositories {
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    // api 'org.apache.commons:commons-math3:3.6.1'
 
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    // implementation 'com.google.guava:guava:28.2-jre'
-
-    // Use JUnit test framework
-	testImplementation 'junit:junit:4.12'
+	// testing
 	testCompile "org.testfx:testfx-junit:4.0.16-alpha"
 	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
 	
-	
+	// for json serialization
 	implementation 'com.google.code.gson:gson:2.8.6'
 
 	// for email address format validation
@@ -45,9 +39,6 @@ dependencies {
 
 	// apache http client
 	compile 'org.apache.httpcomponents:httpclient:4.5.13'
-
-	// json data handling
-	compile group: 'org.json', name: 'json', version: '20200518'
 
 	// local dependencies
 	compile project(":uob-cis-assignment")
