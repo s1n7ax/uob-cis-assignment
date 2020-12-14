@@ -1,13 +1,9 @@
 **/.settings
 **/*log.txt
-uob-cis-assignment/.classpath
-uob-cis-assignment/.project
-uob-cis-assignment-client/.classpath
-uob-cis-assignment-client/.project
-uob-cis-assignment-server/.classpath
-uob-cis-assignment-server/.project
 /.gradle/
+
 **/*.class
+**/.classpath
 **/.project
 **/.settings
 **/log.txt
