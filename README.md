@@ -2,8 +2,6 @@
 
 Customer feedback system written in Java native client and Spring RESTful backend
 
-
-
 ## How to build and run
 
 ### Prerequisites

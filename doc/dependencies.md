@@ -74,7 +74,8 @@ logger.error("unable to connect to host", e);
 ```
 
 ### httpclient
-Sending HTTP requests
+Sending HTTP requests. Additionally apache http client handles cookies
+automatically.
 
 Ex:-
 
