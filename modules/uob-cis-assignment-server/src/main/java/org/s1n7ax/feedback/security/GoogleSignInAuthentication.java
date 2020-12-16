@@ -90,7 +90,7 @@ public class GoogleSignInAuthentication {
 		GoogleIdToken.Payload payload = idToken.getPayload();
 
 		if (!payload.getEmailVerified())
-			throw new VerifyException("Email is not varified");
+			throw new VerifyException("Email is not verified");
 
 		return payload.getEmail();
 
